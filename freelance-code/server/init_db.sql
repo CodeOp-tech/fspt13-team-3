@@ -33,4 +33,4 @@ VALUES ('johndoe', 'password123', 'johndoe@example.com', 'avatar.png', 'John'),
 INSERT INTO services (service_type, description, languages, hourly_rate, resume, images, user_id)
 VALUES ('Web Design', 'I create beautiful, responsive websites', 'HTML, CSS, JavaScript', 75.00, 'resume.pdf', NULL, 1),
        ('Graphic Design', 'I design logos, flyers, and more', 'Photoshop, Illustrator', 50.00, NULL, 'design1.jpg, design2.jpg', 2),
-       ('Translation', 'I translate documents from Spanish to English', 'Spanish, English', 25.00, 'resume.pdf', NULL, 3);
+       ('Back end', 'I design databases', 'Spanish, English', 25.00, 'resume.pdf', NULL, 3);
