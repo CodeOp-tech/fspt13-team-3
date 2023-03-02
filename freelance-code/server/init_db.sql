@@ -1,5 +1,6 @@
 
-
+-- not sure if we need the ALTER TABLE all the time or not 
+ALTER TABLE services DROP FOREIGN KEY services_ibfk_1;
 DROP TABLE IF EXISTS user_table;
 CREATE TABLE user_table (
 user_id INT PRIMARY KEY AUTO_INCREMENT,
