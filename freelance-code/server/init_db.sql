@@ -1,6 +1,3 @@
-
-
-
 DROP TABLE IF EXISTS user_table;
 CREATE TABLE user_table (
 user_id INT PRIMARY KEY AUTO_INCREMENT,
