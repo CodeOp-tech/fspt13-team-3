@@ -1,4 +1,6 @@
+DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS user_table;
+
 CREATE TABLE user_table (
 user_id INT PRIMARY KEY AUTO_INCREMENT,
 username VARCHAR(255) UNIQUE NOT NULL,
@@ -8,7 +10,6 @@ avatar VARCHAR(255),
 firstname VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS services;
 CREATE TABLE services (
 service_id INT PRIMARY KEY AUTO_INCREMENT,
 service_type VARCHAR(255) NOT NULL,
