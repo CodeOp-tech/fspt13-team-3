@@ -109,10 +109,12 @@ export default function Signup() {
                 <section>
                     <div>
                         <h2>Create an account</h2>
-                        <div className="form-control">
-                            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                            <form onSubmit={handleSubmit}>
-                                <label htmlFor="username">
+                        <div className="w-full max-w-xl">
+                            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                            <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
+                            <div class="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="username">
                                 Username
                                 {/*
                                 <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
@@ -120,6 +122,7 @@ export default function Signup() {
                                 */}
                                 </label>
                                 <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
                                     type="text"
                                     id="username"
                                     ref={userRef}
@@ -132,14 +135,18 @@ export default function Signup() {
                                     onFocus={() => setUserFocus(true)}
                                     onBlur={() => setUserFocus(false)}
                                 />
-                                 <p id="uidnote" className={userFocus && username && !validName ? "instructions" : "offscreen"}>
+                                 <p id="uidnote" className={userFocus && username && !validName ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
                                             4 to 24 characters.<br />
                                             Must begin with a letter.<br />
                                             Letters, numbers, underscores, hyphens allowed.
                                 </p>
-                                <label htmlFor="firstname">Firstname
+                                </div>
+                                <div class="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="firstname">Firstname
                                 </label>
                                 <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
                                     type="text"
                                     id="firstname"
                                     ref={userRef}
@@ -151,14 +158,18 @@ export default function Signup() {
                                     onFocus={() => setFirstnameFocus(true)}
                                     onBlur={() => setFirstnameFocus(false)}
                                 />
-                                <p id="uidnote" className={firstnameFocus && firstname && !validFirstname ? "instructions" : "offscreen"}>
+                                <p id="uidnote" className={firstnameFocus && firstname && !validFirstname ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
                                             1 to 24 characters.<br />
                                             Must begin with a letter.<br />
                                             Letters, numbers, underscores, hyphens allowed.
                                 </p>
-                                <label htmlFor="email">Email
+                                </div>
+                                <div class="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="email">Email
                                 </label>
                                 <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
                                     type="text"
                                     id="email"
                                     ref={userRef}
@@ -170,12 +181,16 @@ export default function Signup() {
                                     onFocus={() => setEmailFocus(true)}
                                     onBlur={() => setEmailFocus(false)}
                                 />
-                                <p id="uidnote" className={emailFocus && email && !validEmail ? "instructions" : "offscreen"}>
+                                <p id="uidnote" className={emailFocus && email && !validEmail ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
                                 Please enter a valid email address.
                                 </p>
-                                <label htmlFor="avatar">Profile Picture
+                                </div>
+                                <div class="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="avatar">Profile Picture
                                 </label>
                                 <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
                                     type="text"
                                     id="avatar"
                                     ref={userRef}
@@ -186,8 +201,10 @@ export default function Signup() {
                                     onFocus={() => setAvatarFocus(true)}
                                     onBlur={() => setAvatarFocus(false)}
                                 />
-
-                                <label htmlFor="password">
+                                </div>
+                                <div class="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="password">
                                 Password:
                                 {/*
                                 <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
@@ -195,6 +212,7 @@ export default function Signup() {
                                 */}
                                 </label>
                                 <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
                                             type="password"
                                             id="password"
                                             onChange={(e) => setPassword(e.target.value)}
@@ -205,19 +223,20 @@ export default function Signup() {
                                             onFocus={() => setPwdFocus(true)}
                                             onBlur={() => setPwdFocus(false)}
                                 />
-                                
-                                <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                                <p id="pwdnote" className={pwdFocus && !validPwd ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
                                  8 to 24 characters.<br />
                                  Must include uppercase and lowercase letters, a number and a special character.<br />
                                 </p>
-                                 <label htmlFor="confirm_pwd">
+                                </div>
+                                <div class="mb-6">
+                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm_pwd">
                                  Confirm Password:
                                  {/*
                                  <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                                  <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
                                   */}
                                  </label>
-                                 <input
+                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
                                             type="password"
                                             id="confirm_pwd"
                                             onChange={(e) => setMatchPwd(e.target.value)}
@@ -229,15 +248,16 @@ export default function Signup() {
                                             onBlur={() => setMatchFocus(false)}
                                         />
                                
-                                <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                                <p id="confirmnote" className={matchFocus && !validMatch ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
                                  Must match the first password input field.
                                 </p>
-                                <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                                </div>
+                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                                <div className="block text-gray-700 text-sm mb-2">
+                                        <p>Already registered? </p>
+                                        <Link className="font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">Login</Link>
+                                    </div>
                                 </form>
-                                <p>
-                                    Already registered?<br />
-                                    <Link href="/login">Login</Link>
-                                </p>
                         </div>  
                     </div>
                 </section>
