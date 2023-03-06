@@ -1,7 +1,6 @@
 //conect to mysql
 const db = require("@/server/helper");
 
-//can't delete parent row with foreign key restraint 
 // DELETE request to delete a user from user_table
 export async function deleteUserById(req, res) {
     const id = req.query.id;
