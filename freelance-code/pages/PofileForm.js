@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const BASE_URL = "http://localhost:3000";
 export default function ProfileForm() {
-  const [services, setServices] = useState({
+  const [test, setServices] = useState({
     job_title: "",
     description: "",
     hourly_rate: 0,
