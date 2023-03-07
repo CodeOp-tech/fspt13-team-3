@@ -29,6 +29,7 @@ export default function UserDetailPage() {
 
   return (
     <>
+    <div className="container mx-auto">
     <p>this is the user detail page</p>
      {user ? (
          <div className="flex flex-col border border-gray-400 rounded-lg p-5">
@@ -94,6 +95,7 @@ export default function UserDetailPage() {
                 </div>
          </div>
      ) : null}
+     </div>
     </>
   );
 }

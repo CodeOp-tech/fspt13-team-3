@@ -129,11 +129,11 @@ export default function Signup() {
                 <section>
                     <div>
                         <h2>Create an account</h2>
-                        <div className="w-full max-w-xl">
+                        <div className="w-full max-w-lg mx-auto">
                             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="username">
                                 Username
                                 {/*
@@ -142,7 +142,7 @@ export default function Signup() {
                                 */}
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                     type="text"
                                     id="username"
                                     ref={userRef}
@@ -162,11 +162,11 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="firstname">Firstname
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                     type="text"
                                     id="firstname"
                                     ref={userRef}
@@ -183,11 +183,11 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="lastname">Lastname
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                     type="text"
                                     id="lastname"
                                     ref={userRef}
@@ -204,11 +204,11 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="location">Location
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                     type="text"
                                     id="location"
                                     ref={userRef}
@@ -225,11 +225,11 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="email">Email
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                     type="text"
                                     id="email"
                                     ref={userRef}
@@ -246,11 +246,11 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="avatar">Profile Picture
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                     type="text"
                                     id="avatar"
                                     ref={userRef}
@@ -263,7 +263,7 @@ export default function Signup() {
                                 />
                                 </div>
                                 <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="password">
                                 Password:
                                 {/*
@@ -272,7 +272,7 @@ export default function Signup() {
                                 */}
                                 </label>
                                 <input
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                             type="password"
                                             id="password"
                                             onChange={(e) => setPassword(e.target.value)}
@@ -289,14 +289,14 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <div className="mb-6">
-                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm_pwd">
+                                 <label className="block text-gray-900 text-sm font-medium mb-2" htmlFor="confirm_pwd">
                                  Confirm Password:
                                  {/*
                                  <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                                  <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
                                   */}
                                  </label>
-                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                                             type="password"
                                             id="confirm_pwd"
                                             onChange={(e) => setMatchPwd(e.target.value)}
@@ -312,10 +312,10 @@ export default function Signup() {
                                  Must match the first password input field.
                                 </p>
                                 </div>
-                                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                                <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                                 <div className="block text-gray-700 text-sm mb-2">
                                         <p>Already registered? </p>
-                                        <Link className="font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">Login</Link>
+                                        <Link className="font-medium text-sm text-coBlue hover:text-blue-800" href="/login">Login</Link>
                                     </div>
                                 </form>
                         </div>  
