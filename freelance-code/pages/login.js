@@ -66,7 +66,7 @@ export default function Login() {
                         <div className="w-full max-w-xl">
                             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
-                            <div class="mb-4">
+                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">Username or email:</label>
                                     <input 
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
@@ -79,7 +79,7 @@ export default function Login() {
                                         required
                                     /> 
                                     </div>  
-                                    <div class="mb-6">    
+                                    <div className="mb-6">    
                                     <label className="block text-gray-700 text-sm font-bold mb-2"  htmlFor="password">Password:</label>
                                     <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"

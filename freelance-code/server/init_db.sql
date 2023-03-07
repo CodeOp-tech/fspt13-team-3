@@ -27,9 +27,9 @@ FOREIGN KEY (user_id) REFERENCES user_table(user_id) ON DELETE CASCADE
 
 -- inital data for user_table
 INSERT INTO user_table (username, password, email, avatar, location, firstname, lastname)
-VALUES ('johndoe', 'password123', 'johndoe@example.com', 'avatar.png', 'Madrid, Spain', 'John', 'Smith'),
-       ('janedoe', 'password456', 'janedoe@example.com', NULL, 'London, England', 'Jane', 'Hartford'),
-       ('bobsmith', 'password789', 'bobsmith@example.com', 'bob_avatar.png', 'Barcelona, Spain', 'Bob', 'Villanueva');
+VALUES ('johndoe', 'password123', 'johndoe@example.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', 'Madrid, Spain', 'John', 'Smith'),
+       ('janedoe', 'password456', 'janedoe@example.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', 'London, England', 'Jane', 'Hartford'),
+       ('bobsmith', 'password789', 'bobsmith@example.com', 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png', 'Barcelona, Spain', 'Bob', 'Villanueva');
 
 -- inital data for services
 INSERT INTO services (service_type, skills, description, languages, hourly_rate, resume, images, user_id)

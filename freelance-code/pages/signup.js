@@ -3,7 +3,9 @@ import Link from 'next/link';
 import axios from "axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const FIRSTNAME_REGEX = /^[A-z][A-z0-9-_]{1,23}$/;
+const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
+const LASTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
+const LOCATION_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].{8,24}$/;
 
@@ -18,6 +20,14 @@ export default function Signup() {
     const [firstname, setFirstname] = useState(''); 
     const [validFirstname, setValidFirstname] = useState(false);
     const [firstnameFocus, setFirstnameFocus] = useState(false);
+
+    const [lastname, setLastname] = useState(''); 
+    const [validLastname, setValidLastname] = useState(false);
+    const [lastnameFocus, setLastnameFocus] = useState(false);
+
+    const [location, setLocation] = useState(''); 
+    const [validLocation, setValidLocation] = useState(false);
+    const [locationFocus, setLocationFocus] = useState(false);
 
     const [email, setEmail] = useState(''); 
     const [validEmail, setValidEmail] = useState(false);
@@ -51,6 +61,14 @@ export default function Signup() {
     }, [firstname])
 
     useEffect(() => {
+        setValidLastname(LASTNAME_REGEX.test(lastname));
+    }, [lastname])
+
+    useEffect(() => {
+        setValidLocation(LOCATION_REGEX.test(location));
+    }, [location])
+
+    useEffect(() => {
         setValidEmail(EMAIL_REGEX.test(email));
     }, [email])
 
@@ -61,14 +79,14 @@ export default function Signup() {
 
     useEffect(() => {
         setErrMsg('');
-    }, [username, password, firstname, email, matchPwd])
+    }, [username, password, firstname, lastname, location, email, matchPwd])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(username, password);
         try {
             const response = await axios.post(`http://localhost:3000/api/auth/signup`,
-                JSON.stringify({ username, password, email, avatar, firstname }),
+                JSON.stringify({ username, password, email, avatar, firstname, lastname, location }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -82,6 +100,8 @@ export default function Signup() {
             //need value attrib on inputs for this
             setUsername('');
             setFirstname('');
+            setLastname('');
+            setLocation('');
             setEmail('');
             setAvatar('');
             setPassword('');
@@ -112,7 +132,7 @@ export default function Signup() {
                         <div className="w-full max-w-xl">
                             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
-                            <div class="mb-4">
+                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" 
                                 htmlFor="username">
                                 Username
@@ -141,7 +161,7 @@ export default function Signup() {
                                             Letters, numbers, underscores, hyphens allowed.
                                 </p>
                                 </div>
-                                <div class="mb-4">
+                                <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" 
                                 htmlFor="firstname">Firstname
                                 </label>
@@ -159,12 +179,52 @@ export default function Signup() {
                                     onBlur={() => setFirstnameFocus(false)}
                                 />
                                 <p id="uidnote" className={firstnameFocus && firstname && !validFirstname ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
-                                            1 to 24 characters.<br />
-                                            Must begin with a letter.<br />
-                                            Letters, numbers, underscores, hyphens allowed.
+                                    Must have at least one character<br />
                                 </p>
                                 </div>
-                                <div class="mb-4">
+                                <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="lastname">Lastname
+                                </label>
+                                <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                    type="text"
+                                    id="lastname"
+                                    ref={userRef}
+                                    onChange={(e) => setLastname(e.target.value)}
+                                    value={lastname}
+                                    required
+                                    aria-invalid={validLastname ? "false" : "true"}
+                                    aria-describedby="uidnote"
+                                    onFocus={() => setLastnameFocus(true)}
+                                    onBlur={() => setLastnameFocus(false)}
+                                />
+                                <p id="uidnote" className={lastnameFocus && lastname && !validLastname ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
+                                    Must have at least one character<br />
+                                </p>
+                                </div>
+                                <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" 
+                                htmlFor="location">Location
+                                </label>
+                                <input
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+                                    type="text"
+                                    id="location"
+                                    ref={userRef}
+                                    onChange={(e) => setLocation(e.target.value)}
+                                    value={location}
+                                    required
+                                    aria-invalid={validLocation ? "false" : "true"}
+                                    aria-describedby="uidnote"
+                                    onFocus={() => setLocationFocus(true)}
+                                    onBlur={() => setLocationFocus(false)}
+                                />
+                                <p id="uidnote" className={locationFocus && location && !validLocation ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
+                                    Must have at least one character<br />
+                                </p>
+                                </div>
+                                <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" 
                                 htmlFor="email">Email
                                 </label>
@@ -185,7 +245,7 @@ export default function Signup() {
                                 Please enter a valid email address.
                                 </p>
                                 </div>
-                                <div class="mb-4">
+                                <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" 
                                 htmlFor="avatar">Profile Picture
                                 </label>
@@ -202,7 +262,7 @@ export default function Signup() {
                                     onBlur={() => setAvatarFocus(false)}
                                 />
                                 </div>
-                                <div class="mb-4">
+                                <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" 
                                 htmlFor="password">
                                 Password:
@@ -228,7 +288,7 @@ export default function Signup() {
                                  Must include uppercase and lowercase letters, a number and a special character.<br />
                                 </p>
                                 </div>
-                                <div class="mb-6">
+                                <div className="mb-6">
                                  <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="confirm_pwd">
                                  Confirm Password:
                                  {/*

@@ -7,7 +7,21 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    screens: {
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px'
+    },
+    extend: {
+      colors: {
+        coBlue: '#3d4beb', 
+        coGreen: '#4fbf90',
+        coGrey: '#f4f2f0', 
+        coYellow: '#ffe5a4',
+        coPurple: '#ccc0ff', 
+      },
+    },
   },
   plugins: [],
 }
