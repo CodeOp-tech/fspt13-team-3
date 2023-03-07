@@ -48,7 +48,6 @@ const createService = async (service) => {
     await sleep(3000);
     setSuccess(false);
 
-
   } catch (error) {
     setError("Something went wrong! Please try again later.");
   } finally {
@@ -65,3 +64,102 @@ const createService = async (service) => {
     });
   }
 };
+
+return (
+  <div>
+    
+    {success ? ( <SuccessAlert /> ) : (
+
+<>
+    <form onSubmit={(e) => handleSubmit(e)} className="">
+      <div>
+        <label>
+          What is your job title? 
+          <input
+            type="text"
+            value={services.job_title}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+        <label>
+          Add your description here:
+          <input
+            type="text"
+            value={services.description}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+        <label>
+          Set Hourly rate:
+          <input
+            type="number"
+            value={services.hourly_rate}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+        <label>
+          Set Skills
+          <input
+            type="text"
+            placeholder="Name your skills here, ReactJS, CCS etc."
+            value={services.skills}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+        <label>
+          What languages do you speak?
+          <input
+            type="text"
+            value={services.languages}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+        <label>
+          Where are you located? 
+          <input
+            type="text"
+            value={services.location}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+        
+        <label>
+          Add your profile image:
+          <input
+            type="url"
+            name="image"
+            value={services.profile_image}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+        <label>
+          Add social links:
+          <input
+            type="url"
+            name="url"
+            value={services.portofolio_link}
+            onChange={(e) => handleChange(e)}
+          ></input>
+        </label>
+
+
+        {/* Image upload option goes here  */}
+
+        <button>
+          Submit
+        </button>
+      </div>
+    </form> 
+   
+
+
+    </>)}
+  </div> 
+);
+
