@@ -29,12 +29,12 @@ export default function UserDetailPage() {
 
   return (
     <>
-    <div className="container mx-auto">
+    <div className="w-full max-w-5xl mx-auto">
     <p>this is the user detail page</p>
      {user ? (
-         <div className="flex flex-col border border-gray-400 rounded-lg p-5">
-             <div className="flex justify-between mb-4">
-                <div className="flex items-center">
+         <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
+             <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
+                <div className="flex flex-col items-center sm:flex-row">
                 <img
                 className="w-32 h-32 rounded-full"
                 src={user.avatar}
@@ -56,7 +56,7 @@ export default function UserDetailPage() {
              <div className="mb-4">
                 <h4 className="font-bold text-lg">Portfolio</h4> 
                 <hr className="mb-2"></hr>
-                <div className="flex justify-between">
+                <div className="flex flex-col gap-1 justify-between sm:flex-row">
                     <div>
                         <p>Github Link</p>
                         <p>LinkedIn Link</p>
@@ -89,7 +89,7 @@ export default function UserDetailPage() {
                 <p>{user.email}</p>
              </div>
              <div className="flex justify-center">
-                <button className="bg-coGreen hover:bg-emerald-500 text-sm text-white py-1 px-4 rounded-md">
+                <button className="bg-coGreen hover:bg-emerald-500 text-white py-1 px-4 rounded-md">
                   Contact
                 </button>
                 </div>
