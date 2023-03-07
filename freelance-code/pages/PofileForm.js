@@ -13,7 +13,7 @@ export default function ProfileForm() {
     portofolio_link: "",
     file_upload: "",
   });
-}
+
 
 const endpoint = '/api/users/services.js'
 
@@ -21,17 +21,19 @@ const [error, setError] = useState("");
 const [success, setSuccess] = useState(false);
 
 const handleChange = (event) => {
+  console.log("success")
   const inputEl = event.target;
   const name = inputEl.name;
   const value = inputEl.value;
-  setService((service) => ({ ...service, [name]: value }));
+  console.log(name,value)
+  setServices((services) => ({ ...services, [name]: value }));
 };
 
 const handleSubmit = (event) => {
   event.preventDefault();
-};
+  createServices()};
 
-const createService = async (service) => {
+const createServices = async (services) => {
   try {
     await fetch(`${BASE_URL}/services`, {
       method: "POST",
@@ -42,6 +44,7 @@ const createService = async (service) => {
     });
     setSuccess(true);
 
+
     function sleep(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
     }
@@ -51,7 +54,7 @@ const createService = async (service) => {
   } catch (error) {
     setError("Something went wrong! Please try again later.");
   } finally {
-    setProduct({
+    setServices({
       job_title: "",
       description: "",
       hourly_rate: 0,
@@ -77,6 +80,7 @@ return (
           What is your job title? 
           <input
             type="text"
+            name="job_title"
             value={services.job_title}
             onChange={(e) => handleChange(e)}
           ></input>
@@ -95,6 +99,7 @@ return (
           Set Hourly rate:
           <input
             type="number"
+            name="hourly_rate"
             value={services.hourly_rate}
             onChange={(e) => handleChange(e)}
           ></input>
@@ -156,10 +161,9 @@ return (
         </button>
       </div>
     </form> 
-   
 
 
     </>)}
   </div> 
 );
-
+    }
