@@ -9,7 +9,7 @@ email VARCHAR(255) UNIQUE NOT NULL,
 avatar VARCHAR(255),
 location VARCHAR(255), 
 firstname VARCHAR(255) NOT NULL,
-lastname VARCHAR(255) NOT NULL
+lastname VARCHAR(255)
 );
 
 CREATE TABLE services (
