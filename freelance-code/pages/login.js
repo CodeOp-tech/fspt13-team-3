@@ -1,57 +1,63 @@
 import React, { useRef, useEffect, useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import axios from "axios";
 
 export default function Login() {
-    const userRef = useRef();
-    const errRef = useRef();
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+  const userRef = useRef();
+  const errRef = useRef();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
 
-    useEffect(() => {
-        userRef.current.focus();
-      }, [])
-  
-      useEffect(() => {
-          setErrMsg('');
-      }, [username, password])
-  
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-  
-        try {
-            const response = await axios.post(`http://localhost:3000/api/auth/login`,
-                JSON.stringify({ username, password }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
-            //store it locally
-          localStorage.setItem("token", response?.data?.token);
-          console.log(response?.data?.message, response?.data?.token);
-            
-            setUsername('');
-            setPassword('');
-            setSuccess(true);
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
-            errRef.current.focus();
-        }
+  useEffect(() => {
+    if (useRef.current) {
+      userRef.current.focus();
     }
+  }, []);
 
+  useEffect(() => {
+    setErrMsg("");
+  }, [username, password]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/auth/login`,
+        JSON.stringify({ username, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      /*  console.log(JSON.stringify(response?.data)); */
+      console.log(response?.data);
+      //console.log(JSON.stringify(response));
+
+      //store it locally
+      localStorage.setItem("token", response?.data?.token);
+
+      /* console.log(response?.data?.message, response?.data?.token); */
+
+      setUsername("");
+      setPassword("");
+      setSuccess(true);
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
+      errRef.current.focus();
+    }
+  };
+  
     return (
         <div>
             {success ? (
@@ -104,3 +110,4 @@ export default function Login() {
         </div>
     );
   }
+
