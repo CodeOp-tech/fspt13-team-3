@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 
 
 export default async function signup(req, res) {
-    const { username, password, email, avatar, firstname } = req.body; 
+    const { username, password, email, avatar, firstname, lastname, location } = req.body; 
 
     if (req.method === "POST") {
           const results = await db(
@@ -20,7 +20,7 @@ export default async function signup(req, res) {
             const hash = await bcrypt.hash(password, saltRounds);
         
             await db(
-              `INSERT INTO user_table (username, password, email, avatar, firstname) VALUES ("${username}", "${hash}", "${email}", "${avatar}", "${firstname}" );`
+              `INSERT INTO user_table (username, password, email, avatar, firstname, lastname, location) VALUES ("${username}", "${hash}", "${email}", "${avatar}", "${firstname}", "${lastname}", "${location}" );`
             );
         
             res.send({ message: "Register successful" });
