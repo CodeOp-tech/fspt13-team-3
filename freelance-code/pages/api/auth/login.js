@@ -20,7 +20,7 @@ export default async function login(req, res) {
               
               if (correctPassword) {
                 const token = jwt.sign({ user_id }, supersecret);
-                res.send({ message: "Login successful, here is your token", token, user_id });
+                res.send({ message: "Login successful, here is your token", token });
               } else {
                 res.status(401).send("Unauthorized");
               }
