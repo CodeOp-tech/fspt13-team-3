@@ -29,7 +29,7 @@ export default function UserDetailPage() {
 
   return (
     <>
-    <div className="w-full max-w-5xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto">
     <p>this is the user detail page</p>
      {user ? (
          <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">

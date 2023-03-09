@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Link from 'next/link'; 
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
@@ -81,6 +82,8 @@ export default function Signup() {
         setErrMsg('');
     }, [username, password, firstname, lastname, location, email, matchPwd])
 
+    const router = useRouter();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(username, password);
@@ -96,6 +99,7 @@ export default function Signup() {
             console.log(response?.accessToken);
             console.log(JSON.stringify(response))
             setSuccess(true);
+            router.push(`/PofileForm`);
             //clear state and controlled inputs
             //need value attrib on inputs for this
             setUsername('');
@@ -120,12 +124,6 @@ export default function Signup() {
 
     return (
         <div>
-            {success ? (
-                        <section>
-                            <h1>Success!</h1>
-                            <Link href="/">Login</Link>
-                        </section>
-                    ) : (
                 <section>
                     <div>
                         <h2>Create an account</h2>
@@ -321,7 +319,6 @@ export default function Signup() {
                         </div>  
                     </div>
                 </section>
-            )}
          </div>
       );
   }
