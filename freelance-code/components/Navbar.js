@@ -46,6 +46,7 @@ const router = useRouter();
 const logout = () => {
   localStorage.removeItem("token");
   router.push(`/`);
+  window.location.reload();
 };
 
 

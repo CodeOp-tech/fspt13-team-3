@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar"; 
+import Footer from "../components/Footer"; 
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -43,9 +44,6 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
       <Navbar/>
       {/* Hero section */}
       <section className="bg-coBlue text-white px-6">
@@ -162,6 +160,7 @@ export default function Home() {
                 </button>
         </div>
       </div>
+      <Footer/>
     </>
   )
 }
