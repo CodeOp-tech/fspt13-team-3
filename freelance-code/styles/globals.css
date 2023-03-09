@@ -2,3 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body {
+    background-color:#f4f2f0;
+}
+
+/* Hamburger menu */ 
+
+.hamburger {
+    cursor:pointer; 
+    width: 24px; 
+    height: 24px; 
+    transition: all 0.25s; 
+    position: relative; 
+}
+
+.hamburger-top, .hamburger-middle, .hamburger-bottom {
+    position:absolute; 
+    top: 0; 
+    left: 0; 
+    width: 24px; 
+    height: 2px; 
+    background-color: white;
+    transform: rotate(0); 
+    transition: all 0.2s; 
+}
+
+.hamburger-top {
+    transform: translateY(2px);
+  }
+  
+  .hamburger-middle {
+    transform: translateY(9px); 
+  }
+  
+  .hamburger-bottom {
+    transform: translateY(16px); 
+  }
+
+  .open {
+    transform: rotate(90deg); 
+    transform: translateY(0px);
+  }
+  
+  .open .hamburger-top {
+    transform: rotate(45deg) translateY(6px) translate(6px);
+  }
+  
+  .open .hamburger-middle {
+    display:none; 
+  }
+  
+  .open .hamburger-bottom {
+    transform: rotate(-45deg) translateY(6px) translate(-6px);
+  }
+
+  .dropdown-mobile {
+    position: absolute; 
+    right: 0.5rem; 
+    left: 0.5rem; 
+    display: none; 
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem; 
+    margin-top: 1rem;  
+    gap: 0.5rem; 
+    font-weight: bold; 
+    background-color: white; 
+    align-self: center;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
+  }
