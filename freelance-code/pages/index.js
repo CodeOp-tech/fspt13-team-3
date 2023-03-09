@@ -82,6 +82,38 @@ export default function Home() {
         </div>
       </div>
        {/* END Category Selection */}
+       {/* Filters */}
+       <div className="flex flex-row mb-6 gap-2">
+       <div className="bg-white border border-black rounded">
+       <select>
+          <option defaultValue>Location</option>
+          <option>Barcelona</option>
+          <option>London</option>
+      </select>
+      </div>
+      <div className="mx-2 bg-white border border-black rounded">
+      <select>
+          <option defaultValue>Skills</option>
+          <option>Skill1</option>
+          <option>Skill2</option>
+      </select>
+      </div>
+      <div className="mx-2 bg-white border border-black rounded">
+      <select>
+          <option defaultValue>Budget</option>
+          <option>Bracket 1</option>
+          <option>Bracket 2</option>
+      </select>
+      </div>
+      </div>
+       {/* END Filters */}
+       {/* Sort */}
+       <div className="flex justify-between">
+       <div className="font-bold text-gray-500 text-sm mb-4">{users.length} freelancers available</div>
+       <div className="text-sm">Sort by <span className="font-bold">Newest Arrivals</span></div>
+       </div>
+       {/* END Sort */}
+        {/* Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {users.map((user, index) => {
             return (
@@ -121,6 +153,7 @@ export default function Home() {
             )
           })}
         </div>
+         {/* END Grid */}
         <div className="mt-auto flex justify-center">
                 <button className="mt-6 border border-black text-sm text-black py-1 px-4 rounded-md">
                 See all freelancers →
