@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Navbar from "../components/Navbar"; 
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -45,6 +46,7 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline">
       Hello world!
     </h1>
+      <Navbar/>
       {/* Hero section */}
       <section className="bg-coBlue text-white px-6">
        <div className="w-full max-w-5xl mx-auto">
