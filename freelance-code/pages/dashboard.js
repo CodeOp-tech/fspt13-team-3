@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
+  const [userDeleted, setUserDeleted] = useState(false)
 
   const removeToken = () => {
     localStorage.removeItem('token');
@@ -55,6 +56,7 @@ const DashboardPage = () => {
 
       console.log(response)
       removeToken();
+      setUserDeleted(true)
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");
     }
@@ -63,6 +65,8 @@ const DashboardPage = () => {
   return (
     <div className="w-full max-w-3xl mx-auto">
       <p>dashboard</p>
+
+      {userDeleted ? (<div>Your account has been deleted </div>) : (
 
       <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
         <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
@@ -106,7 +110,7 @@ const DashboardPage = () => {
         <div className="mb-4">
           <h4 className="font-bold text-lg">Skills</h4>
           <hr className="mb-2"></hr>
-         {/*  {user.skills.split(",").map((skill, index) => {
+          {user.skills.split(",").map((skill, index) => {
             return (
               <span
                 key={index}
@@ -115,7 +119,7 @@ const DashboardPage = () => {
                 {skill}
               </span>
             );
-          })} */}
+          })}
         </div>
         <div className="mb-4">
           <h4 className="font-bold text-lg">Languages</h4>
@@ -135,7 +139,7 @@ const DashboardPage = () => {
             Delete
           </button>
         </div>
-      </div>
+      </div> )}
     </div>
   );
 };
