@@ -68,8 +68,6 @@ const DashboardPage = () => {
           "Content-Type": "application/json",
         },
       })
-
-      console.log(response)
       removeToken();
       setPopup({
         show: false,
@@ -95,6 +93,11 @@ const DashboardPage = () => {
         id: null,
       });
     };
+
+      // open edit profile page
+  const openEditProfile = (user_id) => {
+    router.push(`/editprofile/${user_id}`);
+  };
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -166,7 +169,7 @@ const DashboardPage = () => {
           <p>{user.email}</p>
         </div>
         <div className="flex justify-center gap-3">
-          <button className="bg-coGreen hover:bg-emerald-500 text-white py-1 px-4 rounded-md">
+          <button onClick={() => openEditProfile(user.user_id)} className="bg-coGreen hover:bg-emerald-500 text-white py-1 px-4 rounded-md">
             Edit
           </button>
           <button  onClick={() => handleDelete(user.user_id)} className=" bg-red-600 hover:bg-red-800 text-white py-1 px-4 rounded-md">
