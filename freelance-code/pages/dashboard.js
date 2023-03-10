@@ -5,10 +5,11 @@ import Popup from "@/components/Popup";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(null)
   const [userDeleted, setUserDeleted] = useState(false)
   const [popup, setPopup] = useState({
     show: false, 
-    id: null,
+    user_id: null,
   });
 
   
@@ -26,6 +27,7 @@ const DashboardPage = () => {
       const tokenPayload = JSON.parse(
         Buffer.from(token.split(".")[1], "base64").toString("utf-8")
       );
+     
 
       if (token) {
         try {
@@ -40,7 +42,7 @@ const DashboardPage = () => {
           const data = await response.json();
           setUser(data);
         } catch (error) {
-          console.error(error);
+          
         }
       }
     };
@@ -53,26 +55,30 @@ const DashboardPage = () => {
   }
 
   // trigger popup 
-  const handleDelete = (id) => {
+  const handleDelete = (user_id) => {
     setPopup({
       show: true,
-      id,
+      user_id,
     });
   }; 
 
-  const handleDeleteTrue = async (id) => {
+  const handleDeleteTrue = async (user_id) => {
+    if (popup.show && popup.user_id) {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/userdetail/${id}`, {
+      
+      const response = await fetch(`http://localhost:3000/api/users/userdetail/${popup.user_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       })
-      removeToken();
       setPopup({
         show: false,
-        id: null,
+        user_id: null,
       });
+      /* console.log(response) */
+      removeToken();
+    
       setUserDeleted(true)
         function sleep(ms) {
         return new Promise((resolve) => setTimeout(resolve, ms));
@@ -84,13 +90,14 @@ const DashboardPage = () => {
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");
     }
+  }
   };
 
     // cancel delete request
     const handleDeleteFalse = () => {
       setPopup({
         show: false,
-        id: null,
+        user_id: null,
       });
     };
 
@@ -101,9 +108,9 @@ const DashboardPage = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto">
-      <p>dashboard</p>
 
-      {userDeleted ? (<div>Sorry to see you go! Your account has been deleted </div>) : (
+      {userDeleted ? (<div className="bg-coGrey my-1/6 mx-auto border-solid border-4 border-coGreen rounded-md w-3/4 m-0 py-10 pl-5 leading-4 font-semibold text-lg">Sorry to see you go! Your account has been safely deleted. </div>
+) : (
      
       <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
         <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
