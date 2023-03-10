@@ -1,13 +1,21 @@
 import withAuth from "../components/withAuth";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import Popup from "@/components/Popup";
 
 const DashboardPage = () => {
   const [user, setUser] = useState(null);
   const [userDeleted, setUserDeleted] = useState(false)
+  const [popup, setPopup] = useState({
+    show: false, 
+    id: null,
+  });
 
+  
   const removeToken = () => {
     localStorage.removeItem('token');
   }
+  const router = useRouter();
 
   useEffect(() => {
     const getUser = async () => {
@@ -44,8 +52,15 @@ const DashboardPage = () => {
     return <div>Loading...</div>;
   }
 
+  // trigger popup 
+  const handleDelete = (id) => {
+    setPopup({
+      show: true,
+      id,
+    });
+  }; 
 
-  const deleteUser = async (id) => {
+  const handleDeleteTrue = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/api/users/userdetail/${id}`, {
         method: "DELETE",
@@ -56,18 +71,37 @@ const DashboardPage = () => {
 
       console.log(response)
       removeToken();
+      setPopup({
+        show: false,
+        id: null,
+      });
       setUserDeleted(true)
+        function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      await sleep(2000);
+      router.push("/");
+
     } catch (error) {
       setError("Oops! Something went wrong. Try again later");
     }
   };
 
+    // cancel delete request
+    const handleDeleteFalse = () => {
+      setPopup({
+        show: false,
+        id: null,
+      });
+    };
+
   return (
     <div className="w-full max-w-3xl mx-auto">
       <p>dashboard</p>
 
-      {userDeleted ? (<div>Your account has been deleted </div>) : (
-
+      {userDeleted ? (<div>Sorry to see you go! Your account has been deleted </div>) : (
+     
       <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
         <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
           <div className="flex flex-col items-center sm:flex-row">
@@ -135,11 +169,17 @@ const DashboardPage = () => {
           <button className="bg-coGreen hover:bg-emerald-500 text-white py-1 px-4 rounded-md">
             Edit
           </button>
-          <button  onClick={() => deleteUser(user.user_id)} className=" bg-red-600 hover:bg-red-800 text-white py-1 px-4 rounded-md">
+          <button  onClick={() => handleDelete(user.user_id)} className=" bg-red-600 hover:bg-red-800 text-white py-1 px-4 rounded-md">
             Delete
           </button>
         </div>
       </div> )}
+      {popup.show && (
+            <Popup
+              handleDeleteTrue={handleDeleteTrue}
+              handleDeleteFalse={handleDeleteFalse}
+            />
+          )}
     </div>
   );
 };
