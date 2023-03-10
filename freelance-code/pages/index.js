@@ -38,6 +38,19 @@ export default function Home() {
     console.log(id)
   };
 
+  // category filter 
+    const handleCategory = async (category) => {
+      console.log(category); 
+        try {
+          const response = await fetch(`http://localhost:3000/api/users/filter?category=${category}`);
+          const users = await response.json(); 
+          console.log(users); 
+          setUsers(users);
+        } catch (error) {
+          setError(error);
+        }
+    };
+
 
 
 
@@ -68,15 +81,15 @@ export default function Home() {
       <h2 className="text-2xl mt-6 mb-6">Our freelancers</h2>
        {/* Category Selection */}
       <div className="flex flex-col sm:flex-row mb-6 gap-2">
-        <div className="flex items-center bg-coBlue border rounded p-2">
+        <div className="flex items-center bg-coBlue border rounded p-2 cursor-pointer" onClick={() => handleCategory("Full Stack")}>
           <div className="border-r border-white pr-2 pl-1"><img className="w-6 h-6" src="https://codeop.tech/wp-content/uploads/2023/01/coding-1-1.svg"/></div>
           <div className="p-2 text-white text-sm">Full Stack Development</div>
         </div>
-        <div className="flex items-center bg-coGreen border rounded p-2">
+        <div className="flex items-center bg-coGreen border rounded p-2 cursor-pointer" onClick={() => handleCategory("Data Science")}>
           <div className="border-r border-white pr-2 pl-1"><img className="w-6 h-6" src="https://codeop.tech/wp-content/uploads/2023/01/data-scicence-2-1.svg"/></div>
           <div className="p-2 text-white text-sm">Data Science</div>
         </div>
-        <div className="flex items-center bg-coPurple border rounded p-2">
+        <div className="flex items-center bg-coPurple border rounded p-2 cursor-pointer" onClick={() => handleCategory("Product Management")}>
           <div className="border-r border-white pr-2 pl-1"><img className="w-6 h-6" src="https://codeop.tech/wp-content/uploads/2023/01/product-management-1-1.svg"/></div>
           <div className="p-2 text-white text-sm">Product Management</div>
         </div>
