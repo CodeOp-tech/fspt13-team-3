@@ -16,7 +16,7 @@ export async function updateUserById(req, res) {
     const updatedUser = { ...user, ...req.body };
 
     await db(
-      `UPDATE user_table, services SET username = '${updatedUser.username}', password = '${updatedUser.password}', email = '${updatedUser.email}', avatar = '${updatedUser.avatar}', location = '${updatedUser.location}', firstname = '${updatedUser.firstname}', lastname = '${updatedUser.lastname}', service_type = '${updatedUser.service_type}', description = '${updatedUser.description}', skills = '${updatedUser.skills}', languages = '${updatedUser.languages}', hourly_rate = ${updatedUser.hourly_rate}, resume = '${updatedUser.resume}', languages = '${updatedUser.images}' WHERE user_table.user_id = services.user_id AND user_table.user_id = ${id}`
+      `UPDATE user_table, services SET username = '${updatedUser.username}', password = '${updatedUser.password}', email = '${updatedUser.email}', avatar = '${updatedUser.avatar}', location = '${updatedUser.location}', firstname = '${updatedUser.firstname}', lastname = '${updatedUser.lastname}', service_type = '${updatedUser.service_type}', service_category = '${updatedUser.category}', description = '${updatedUser.description}', skills = '${updatedUser.skills}', languages = '${updatedUser.languages}', hourly_rate = ${updatedUser.hourly_rate}, resume = '${updatedUser.resume}', github_url = '${updatedUser.github_url}', linkedin_url = '${updatedUser.linkedin_url}', other_url = '${updatedUser.other_url}', images = '${updatedUser.images}' WHERE user_table.user_id = services.user_id AND user_table.user_id = ${id}`
     );
 
     res
