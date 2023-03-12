@@ -3,10 +3,52 @@ const db = require("@/server/helper");
 
 //get request to get all users from user_table AND service info 
 export default async function getUsers(req, res) {
-    const users = await db("SELECT * FROM user_table, services WHERE user_table.user_id = services.user_id;");
+    const category = req.query.category;
+    const location = req.query.location; 
+    const price = req.query.price; 
+    const search = req.query.search; 
+    const sort = req.query.sort; 
 
+    let queryString = ""; 
+    if (category) {
+        queryString += ` AND service_category = "${category}"`; 
+    }
+    if (location) {
+        queryString += ` AND location = "${location}"`;
+    }
+    if (price) {
+        const min = Number(price.split('-')[0]); 
+        const max = Number(price.split('-')[1]);
+        queryString += ` AND hourly_rate BETWEEN ${min} AND ${max}`;
+    }
+    if (search) {
+        queryString += ` AND service_type LIKE "%${search}%"`;
+    }
+    
+    if (sort === "lowest") {
+        queryString += ` ORDER BY hourly_rate ASC`;
+    } else if (sort === "highest") {
+        queryString += ` ORDER BY hourly_rate DESC`;
+    } else {
+        queryString += ` ORDER BY services.user_id DESC`;
+    }
+   
+    console.log(queryString); 
 
-    res.json(users);
+    if (req.method === "GET") {
+        try {
+            const response = await db(`SELECT * FROM user_table, services WHERE user_table.user_id = services.user_id${queryString};`);
+            const users = response.data; 
+        
+            if (!users) {
+                res.status(404).send("No matches found");
+                return; 
+            }
+            res.send(response.data);
+        } catch(error) {
+            res.status(500).send(error);
+        }
+    } 
 }
 
 //ORDER BY user_id ASC
