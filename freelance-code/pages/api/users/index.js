@@ -8,21 +8,25 @@ export default async function getUsers(req, res) {
     const price = req.query.price; 
     const search = req.query.search; 
     const sort = req.query.sort; 
+    const skill = req.query.skill; 
 
     let queryString = ""; 
-    if (category) {
+    if (category && category !== "all") {
         queryString += ` AND service_category = "${category}"`; 
     }
-    if (location) {
+    if (location && location !== "all") {
         queryString += ` AND location = "${location}"`;
     }
-    if (price) {
+    if (price && price !== "all") {
         const min = Number(price.split('-')[0]); 
         const max = Number(price.split('-')[1]);
         queryString += ` AND hourly_rate BETWEEN ${min} AND ${max}`;
     }
-    if (search) {
-        queryString += ` AND service_type LIKE "%${search}%"`;
+    if (skill && skill !== "all") {
+        queryString += ` AND skills LIKE "%${skill}%"`;
+    }
+    if (search && search !== "") {
+        queryString += ` AND service_type LIKE "%${search}%" `;
     }
     
     if (sort === "lowest") {
@@ -50,7 +54,5 @@ export default async function getUsers(req, res) {
         }
     } 
 }
-
-//ORDER BY user_id ASC
 
 

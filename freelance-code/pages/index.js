@@ -33,6 +33,14 @@ const categories = [
 ]; 
 
 
+const skills = [
+  { name: "research", id: 1 }, 
+  { name: "data science", id: 2 },
+  { name: "marketing", id: 3 },
+  { name: "communication", id: 4 },
+  { name: "frontend", id: 5 },
+]; 
+
 export default function Home() {
   const router = useRouter();
   const [users, setUsers] = useState([]);
@@ -44,7 +52,7 @@ export default function Home() {
     category = '',
     location = '',
     price = '',
-    search ='',
+    skill = '',
     sort = 'newest',
   } = router.query;
 
@@ -52,19 +60,17 @@ export default function Home() {
     category,
     location,
     price,
+    skill,
     search,
     sort,
-    min,
-    max,
   }) => {
     const { query } = router;
     if (category) query.category = category;
     if (location) query.location = location;
     if (price) query.price = price;
+    if (skill) query.skill = skill; 
     if (search) query.search = search;
     if (sort) query.sort = sort;
-    if (min) query.min ? query.min : query.min === 0 ? 0 : min;
-    if (max) query.max ? query.max : query.max === 0 ? 0 : max; 
 
 
     router.push({
@@ -76,7 +82,7 @@ export default function Home() {
   };
 
 
-  // Get all freelancers
+  // Get all freelancers & filter
   const getUsers = async () => {
     setLoading(true);
     setError(null);
@@ -92,7 +98,6 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-
   };
 
   useEffect(() => {
@@ -100,24 +105,6 @@ export default function Home() {
   }, [filter]);
 
 
- // Search bar functionality
-//  const searchUsers = async () => {
-//   if (searchQuery) {
-//     try {
-//           const response = await fetch(`http://localhost:3000/api/users?searchQuery=${searchQuery}`);
-//           const users = await response.json(); 
-//           console.log(users); 
-//           setUsers(users);
-//           } catch (error) {
-//             setError(error);
-//         }
-//   }
-// }; 
-
-// useEffect(() => {
-//   searchUsers();
-// }, [searchQuery])
-  
 
   const categoryHandler = (e) => {
     filterSearch({ category: e.target.value });
@@ -133,6 +120,9 @@ export default function Home() {
   };
   const searchHandler = (e) => {
     filterSearch({ search: e.target.value })
+  }
+  const skillsHandler = (e) => {
+    filterSearch({ skill: e.target.value })
   }
 
 
@@ -169,8 +159,8 @@ export default function Home() {
                     <input
                       onChange={searchHandler}
                       type="text"
-                      className="rounded-tr-none rounded-br-none p-1 text-sm text-black"
-                      placeholder="Search products"
+                      className="w-full rounded-sm p-1 text-sm text-black h-7 placeholder:text-xs md:w-4/5"
+                      placeholder="Search for services"
                     />
               </div>
             </div>
@@ -187,7 +177,7 @@ export default function Home() {
       {/* Freelancer Grid */}
       <div className="w-full max-w-5xl mx-auto px-4">
       <h2 className="text-2xl mt-6 mb-6">Our freelancers</h2>
-       {/* Category Selection */}
+       {/* Category Selection - need to decide if we want to open a category specific page upon clicking one of these or if we want to filter by category */}
       <div className="flex flex-col sm:flex-row mb-6 gap-2">
         <div className="flex items-center bg-coBlue border rounded p-2 cursor-pointer" onClick={() => handleCategory("Full Stack")}>
           <div className="border-r border-white pr-2 pl-1"><img className="w-6 h-6" src="https://codeop.tech/wp-content/uploads/2023/01/coding-1-1.svg"/></div>
@@ -208,7 +198,7 @@ export default function Home() {
        <div>
           <h2>Location</h2>
           <select className="bg-white border border-black rounded" value={location} onChange={locationHandler}>
-          <option value="">All</option>
+          <option value="all">All</option>
            {locations && 
               locations.map((location) =>  (
                 <option key={location.id} value={location.name}>
@@ -219,7 +209,7 @@ export default function Home() {
         <div >
           <h2>Categories</h2>
           <select className="bg-white border border-black rounded" value={category} onChange={categoryHandler}>
-           <option value="">All</option>
+           <option value="all">All</option>
               {categories &&
                 categories.map((category) => (
                   <option key={category.id} value={category.name}>
@@ -229,13 +219,25 @@ export default function Home() {
           </select>
         </div>
         <div >
-          <h2>Prices</h2>
+          <h2>Budget</h2>
           <select className="bg-white border border-black rounded" value={price} onChange={priceHandler}>
-           <option value="">All</option>
+           <option value="all">All</option>
               {prices &&
                 prices.map((price) => (
                       <option key={price.value} value={price.value}>
                         {price.name}
+                      </option>
+                    ))}
+          </select>
+        </div>
+        <div >
+          <h2>Skills</h2>
+          <select className="bg-white border border-black rounded" value={skill} onChange={skillsHandler}>
+           <option value="all">All</option>
+              {skills &&
+                skills.map((skill) => (
+                      <option key={skill.id} value={skill.value}>
+                        {skill.name}
                       </option>
                     ))}
           </select>
