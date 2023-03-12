@@ -7,6 +7,7 @@ const BASE_URL = "http://localhost:3000";
 export default function ProfileForm() {
   const [services, setServices] = useState({
     job_title: "",
+    profileImage:"",
     description: "",
     skills: "",
     languages: "",
@@ -15,12 +16,14 @@ export default function ProfileForm() {
     github_url: "",
     linkedin_url: "",
     other_url: "",
-    images: "",
+    image:"",
     user_id: "",
   });
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [image,setImage] = useState();
+  const [profileImage,setProfileImage] =useState();
 
   const handleChange = (event) => {
     const inputEl = event.target;
@@ -29,15 +32,23 @@ export default function ProfileForm() {
     setServices((services) => ({ ...services, [name]: value }));
   };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const previewUrl = event.target.result;
-      // Set the preview URL as a state variable or update a preview element in the DOM
-    };
-    reader.readAsDataURL(file);
+  const handleImage = (e) => {
+    setImage(e.target.files[0]);
   };
+
+  const handleProfileImage = (e) => {
+    setProfileImage(e.target.files[0]);
+  };
+
+  // const handleImageUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onload = (event) => {
+  //     const previewUrl = event.target.result;
+  //     // Set the preview URL as a state variable or update a preview element in the DOM
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -56,6 +67,7 @@ export default function ProfileForm() {
     } finally {
       setServices({
         service_type: "",
+        profileImage:"",
         description: "",
         skills: "",
         languages: "",
@@ -64,7 +76,7 @@ export default function ProfileForm() {
         github_url: "",
         linkedin_url: "",
         other_url: "",
-        images: "",
+        image: "",
       });
     }
   };
@@ -94,7 +106,11 @@ export default function ProfileForm() {
                     />
                   </label>
                 </div>
-
+                
+                <div>      Choose your profile image
+                    <label>
+                <input type="file" onChange={handleProfileImage}></input>
+              </label></div>
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     About you
@@ -141,6 +157,7 @@ export default function ProfileForm() {
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Set Skills
+                    <AutoCompleteComponent />
                     <input
                       type="text"
                       placeholder="Name your skills here, ReactJS, CCS etc."
@@ -197,11 +214,11 @@ export default function ProfileForm() {
                 {/* TODO: Image & resume upload option  */}
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Upload your resume
-
+      
+              Upload your resume
         
                     <input
-                      type="text"
+                      type="file"
                       name="resume"
                       value={services.resume}
                       onChange={(e) => handleChange(e)}
@@ -216,11 +233,13 @@ export default function ProfileForm() {
                     <input
                       type="file"
                       name="image"
-                      onChange={handleImageUpload}
+                      onChange={handleImage}
                     />
                     <button type="submit">Upload</button>
                   </label>
                 </div>
+
+            
 
                 <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4">
                   Finish setup

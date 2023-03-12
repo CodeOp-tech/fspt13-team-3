@@ -24,17 +24,10 @@ resume VARCHAR(255),
 github_url VARCHAR(255),
 linkedin_url VARCHAR(255),
 other_url VARCHAR(255),
+image VARCHAR(255),
+profile_image VARCHAR(255),
 user_id INT NOT NULL,
 FOREIGN KEY (user_id) REFERENCES user_table(user_id) ON DELETE CASCADE
-);
-
-CREATE TABLE images (
-  id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  user_id INT(11) UNSIGNED NOT NULL,
-  file_name VARCHAR(255) NOT NULL,
-  file_type VARCHAR(255) NOT NULL,
-  file_data LONGBLOB NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- inital data for user_table

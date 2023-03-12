@@ -8,9 +8,12 @@ export default function AutoCompleteComponent() {
   const [skills, setSkills] = useState({});
 
   const options = [
-    { value: "Javascrip", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "JavaScript", label: "Javascript" },
+    { value: "HTML", label: "HTML" },
+    { value: "CSS", label: "CSS" },
+    { value: "ReactJS", label: "ReactJS" },
+    { value: "NextJS", label: "NextJS" },
+    { value: "MySQL", label: "MySQL" },
   ];
 
   const handleChange = (e) => {
@@ -27,4 +30,4 @@ export default function AutoCompleteComponent() {
       options={options}
     />
   );
-}
+}``
