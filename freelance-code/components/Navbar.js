@@ -51,8 +51,8 @@ const logout = () => {
 
 
   return (
-    <header className="bg-coBlue py-2.5 px-3.5 border-b">
-      <div className="w-full max-w-5xl mx-auto flex justify-between">
+    <header className="w-full bg-coBlue border-b">
+      <div className="max-w-5xl mx-auto flex justify-between py-2.5 px-4 ">
       <Link className="font-medium text-xl text-white" href="/">LOGO</Link>
         <div className="hidden justify-end gap-2 md:flex self-center">
         {token && user && (
