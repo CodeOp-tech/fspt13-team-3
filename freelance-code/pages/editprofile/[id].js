@@ -9,6 +9,8 @@ const EditProfile = () => {
   const [user, setUser] = useState(null);
   const [tempProfile, setTempProfile] = useState();
   const [changed, setChanged] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
 
   const categories = [
     { name: "Full Stack", id: 1 },
@@ -42,20 +44,25 @@ const EditProfile = () => {
         },
         body: JSON.stringify(tempProfile),
       });
-      function sleep(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-      }
 
-      await sleep(2000);
       //route to other page
-      router.push(`/dashboard`);
+      handleUpdateSuccess();
+      router.push({
+        pathname: '/dashboard',
+        query: { successMessage: 'Your details have been updated' },
+      });
     } catch (error) {
       setError(error);
     }
   };
 
+    const handleUpdateSuccess = () => {
+    setSuccessMessage('Your details have been updated');
+  };
+
   const goBack = () => {
-    router.push(`/dashboard`);
+    router.push('/dashboard',
+    );
   }
 
   return (

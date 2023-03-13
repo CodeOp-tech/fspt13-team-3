@@ -6,8 +6,11 @@ function Popup({ handleDeleteTrue, handleDeleteFalse }) {
           <p className="m-0 pt-5 px-0 leading-4 font-semibold text-lg">
             Are you sure you want to delete your account?
           </p>
-          <div onClick={handleDeleteFalse} className="cancel-icon cursor-pointer h-16 w-16 rounded-full grid place-items-center hover:bg-white">
-            ✖️ 
+          <div
+            onClick={handleDeleteFalse}
+            className="cancel-icon cursor-pointer h-16 w-16 rounded-full grid place-items-center hover:bg-white"
+          >
+            ✖️
           </div>
         </div>
         <button
@@ -16,7 +19,10 @@ function Popup({ handleDeleteTrue, handleDeleteFalse }) {
         >
           ✖️ No, don't delete
         </button>
-        <button onClick={handleDeleteTrue} className="modal-delete inline-block mt-10 mr-5 mb-0 ml-0 bg-red-600 text-white border-none py-4 px-6 cursor-pointer no-underline text-base leading-4 font-semibold rounded-md hover:bg-red-800">
+        <button
+          onClick={handleDeleteTrue}
+          className="modal-delete inline-block mt-10 mr-5 mb-0 ml-0 bg-red-600 text-white border-none py-4 px-6 cursor-pointer no-underline text-base leading-4 font-semibold rounded-md hover:bg-red-800"
+        >
           Yes, delete it
         </button>
       </div>
@@ -24,14 +30,9 @@ function Popup({ handleDeleteTrue, handleDeleteFalse }) {
   );
 }
 
-export default Popup; 
+export default Popup; /* Fallback color */ /* Black w/ opacity */
 
-
-/* Sit on top */ /* Fallback color */ /* Black w/ opacity */
-
-
-
-
+/* Sit on top */
 
 /*   .modal-cancel {
     font-family: inherit;

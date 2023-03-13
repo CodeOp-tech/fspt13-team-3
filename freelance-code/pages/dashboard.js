@@ -4,8 +4,21 @@ import { useRouter } from "next/router";
 import Popup from "@/components/Popup";
 
 const DashboardPage = () => {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const { successMessage } = router.query;
+  const [successEmpty, setSuccessEmpty] = useState("");
+
+  useEffect(() => {
+    if (successMessage) {
+      setSuccessEmpty(decodeURIComponent(successMessage));
+      setTimeout(() => {
+        setSuccessEmpty("");
+      }, 3000); // hide the success message after 3 seconds
+    }
+  }, [successMessage]);
+
   const [userDeleted, setUserDeleted] = useState(false);
   const [popup, setPopup] = useState({
     show: false,
@@ -15,7 +28,6 @@ const DashboardPage = () => {
   const removeToken = () => {
     localStorage.removeItem("token");
   };
-  const router = useRouter();
 
   useEffect(() => {
     const getUser = async () => {
@@ -47,7 +59,7 @@ const DashboardPage = () => {
   }, []);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div>Hold tight while we gather your details...</div>;
   }
 
   // trigger popup
@@ -105,6 +117,22 @@ const DashboardPage = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto">
+      <div>
+        {successMessage && successEmpty.length > 0 ? (
+          <section className="modal fixed z-10 left-0 top-0 w-full h-full overflow-auto backdrop-brightness-50 backdrop-blur-sm">
+            <div className="modal-box bg-white my-1/6 mx-auto p-6 border-solid border-4 border-coGreen rounded-md w-2/4">
+              <div className="modal-head flex justify-between">
+                <p className="m-0 pt-5 px-0 leading-4 font-semibold text-lg">
+                  {successEmpty}
+                </p>
+                <div className="cancel-icon cursor-pointer h-10 w-10 rounded-full grid place-items-center bg-coGreen">
+                  ✔️
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : null}
+      </div>
       {userDeleted ? (
         <div className="bg-coGrey my-1/6 mx-auto border-solid border-4 border-coGreen rounded-md w-3/4 m-0 py-10 pl-5 leading-4 font-semibold text-lg">
           Sorry to see you go! Your account has been safely deleted.{" "}
@@ -140,7 +168,6 @@ const DashboardPage = () => {
             <hr className="mb-2"></hr>
             <div className="flex flex-col gap-1 justify-between sm:flex-row">
               <div>
-                
                 <p>{user.linkedin_url}</p>
                 <p>{user.github_url}</p>
                 <p>{user.other_url}</p>
