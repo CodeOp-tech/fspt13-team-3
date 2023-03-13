@@ -1,14 +1,16 @@
 import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
   const userRef = useRef();
   const errRef = useRef();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
+
 
   useEffect(() => {
     if (useRef.current) {
@@ -43,7 +45,7 @@ export default function Login() {
 
       setUsername("");
       setPassword("");
-      setSuccess(true);
+      router.push("/dashboard");
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -60,15 +62,8 @@ export default function Login() {
   
     return (
         <div>
-            {success ? (
-                <section>
-                    <h1>You are logged in!</h1>
-                    <br />
-                </section>
-            ) : (
                 <section>
                     <div>
-                    <h2>Login to your account</h2>
                         <div className="w-full max-w-lg mx-auto">
                             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
@@ -106,7 +101,6 @@ export default function Login() {
                         </div>
                     </div>
                 </section>
-            )}
         </div>
     );
   }
