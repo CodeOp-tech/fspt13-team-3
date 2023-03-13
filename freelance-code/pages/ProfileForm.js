@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import AutoCompleteComponent from "./AutoCompleteComponent";
+import Select from "react-select"; // belongs to autocomplete component
+import makeAnimated from "react-select/animated"; // belongs to autocomplete component
+
 
 const BASE_URL = "http://localhost:3000";
 
@@ -25,6 +28,26 @@ export default function ProfileForm() {
   const [image,setImage] = useState();
   const [profileImage,setProfileImage] =useState();
 
+  const animatedComponents = makeAnimated(); // belongs to autocomplete componen
+
+
+//Autocomplete component
+  const options = [
+    { value: "JavaScript", label: "Javascript" },
+    { value: "HTML", label: "HTML" },
+    { value: "CSS", label: "CSS" },
+    { value: "ReactJS", label: "ReactJS" },
+    { value: "NextJS", label: "NextJS" },
+    { value: "MySQL", label: "MySQL" },
+  ];
+
+  const handleSkills = (e) => {
+    const selectedSkills = e.target.value;
+    setServices((services) => ({...service, skills: selectedSkills }));
+  };
+  console.log(services,skills)
+
+  
   const handleChange = (event) => {
     const inputEl = event.target;
     const name = inputEl.name;
@@ -52,7 +75,7 @@ export default function ProfileForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    services.user_id = userID;
+    services.user_id =userID;
     try {
       await axios.post(
         `${BASE_URL}/api/users/services`,
@@ -62,6 +85,7 @@ export default function ProfileForm() {
         }
       );
       setSuccess(true);
+   
     } catch (error) {
       setError("Something went wrong! Please try again later.");
     } finally {
@@ -157,7 +181,14 @@ export default function ProfileForm() {
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Set Skills
-                    <AutoCompleteComponent />
+                    <Select
+      onChange={handleSkills}
+      closeMenuOnSelect={false}
+      components={animatedComponents}
+      defaultValue={options[0]}
+      isMulti
+      options={options}
+    />
                     <input
                       type="text"
                       placeholder="Name your skills here, ReactJS, CCS etc."

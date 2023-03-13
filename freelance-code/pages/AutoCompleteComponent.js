@@ -16,13 +16,13 @@ export default function AutoCompleteComponent() {
     { value: "MySQL", label: "MySQL" },
   ];
 
-  const handleChange = (e) => {
+  const handleSkills = (e) => {
     setSkills(e.target.value);
   };
 
   return (
     <Select
-      onChange={handleChange}
+      onChange={handleSkills}
       closeMenuOnSelect={false}
       components={animatedComponents}
       defaultValue={options[0]}
