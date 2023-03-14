@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Layout from "../components/Layout"; 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
@@ -13,6 +14,7 @@ const PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].{8,24}$/;
 
 export default function Signup() {
+
   const userRef = useRef();
   const errRef = useRef();
 
@@ -143,6 +145,7 @@ export default function Signup() {
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
+
         }
        
       );
@@ -180,39 +183,25 @@ export default function Signup() {
     }
   };
 
-  return (
-    <div>
-      <section>
-        <div>
-          <h2>Create an account</h2>
-          <div className="w-full max-w-lg mx-auto">
-            <form
-              className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-              onSubmit={handleSubmit}
-            >
-              <div
-                ref={errRef}
-                className={
-                  errMsg
-                    ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4"
-                    : "absolute"
-                }
-                aria-live="assertive"
-              >
-                {errMsg}
-              </div>
+    return (
+        <Layout navTwo={true}>
+                <section>
+                    <div>
+                        <div className="w-full max-w-lg mx-auto mb-24">
+                        <div className="px-4 sm:px-0">
+                              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Create an account</h2>
+                              <div className="text-gray-900 text-sm">
+                              Already registered? <Link className="underline underline-offset-2 font-medium text-sm text-coBlue hover:text-blue-800" href="/login">Login</Link>
+                             </div>
+                          </div>
+                            <form className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4" onSubmit={handleSubmit}>
+                            <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
+                            <div className="mb-4">
+                                <label className="block text-gray-900 text-sm font-medium mb-2" 
+                                htmlFor="username">
+                                Username
+                                {/*
 
-              <label>
-                <input type="file" onChange={handleImage}></input>
-              </label>
-
-              <div className="mb-4">
-                <label
-                  className="block text-gray-900 text-sm font-medium mb-2"
-                  htmlFor="username"
-                >
-                  Username
-                  {/*
                                 <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
                                 <FontAwesomeIcon icon={faTimes} className={validName || !username ? "hide" : "invalid"} />
                                 */}
@@ -310,6 +299,10 @@ export default function Signup() {
                   <br />
                 </p>
               </div>
+
+              <label>
+                <input type="file" onChange={handleImage}></input>
+              </label>
 
               <div className="mb-4">
                 <label
@@ -442,50 +435,31 @@ export default function Signup() {
                                  <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                                  <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
                                   */}
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                  type="password"
-                  id="confirm_pwd"
-                  onChange={(e) => setMatchPwd(e.target.value)}
-                  value={matchPwd}
-                  required
-                  aria-invalid={validMatch ? "false" : "true"}
-                  aria-describedby="confirmnote"
-                  onFocus={() => setMatchFocus(true)}
-                  onBlur={() => setMatchFocus(false)}
-                />
 
-                <p
-                  id="confirmnote"
-                  className={
-                    matchFocus && !validMatch
-                      ? "text-red-500 text-xs italic pt-2.5"
-                      : "absolute hidden"
-                  }
-                >
-                  Must match the first password input field.
-                </p>
-              </div>
-              <button
-                className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4"
-                disabled={!validName || !validPwd || !validMatch ? true : false}
-              >
-                Sign Up
-              </button>
-              <div className="block text-gray-700 text-sm mb-2">
-                <p>Already registered? </p>
-                <Link
-                  className="font-medium text-sm text-coBlue hover:text-blue-800"
-                  href="/login"
-                >
-                  Login
-                </Link>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-}
+                                 </label>
+                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                                            type="password"
+                                            id="confirm_pwd"
+                                            onChange={(e) => setMatchPwd(e.target.value)}
+                                            value={matchPwd}
+                                            required
+                                            aria-invalid={validMatch ? "false" : "true"}
+                                            aria-describedby="confirmnote"
+                                            onFocus={() => setMatchFocus(true)}
+                                            onBlur={() => setMatchFocus(false)}
+                                        />
+                               
+                                <p id="confirmnote" className={matchFocus && !validMatch ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
+                                 Must match the first password input field.
+                                </p>
+                                </div>
+                                <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                                
+                                </form>
+                        </div>  
+                    </div>
+                </section>
+           </Layout>
+      );
+  }
+

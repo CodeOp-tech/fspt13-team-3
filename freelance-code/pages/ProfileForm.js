@@ -3,12 +3,33 @@ import axios from "axios";
 /* import AutoCompleteComponent from "./AutoCompleteComponent"; */
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
+import Layout from "../components/Layout"; 
 
 const BASE_URL = "http://localhost:3000";
 
 export default function ProfileForm() {
+  const [userID, setUserID] = useState(null);
+
+  useEffect(() => {
+    const getUserID = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+      const tokenPayload = JSON.parse(
+        Buffer.from(token.split(".")[1], "base64").toString("utf-8")
+      );
+      setUserID(tokenPayload.user_id);
+      console.log(userID);
+    };
+
+    getUserID();
+  }, []);
+
+  console.log(userID);
+
   const [services, setServices] = useState({
-    job_title: "",
+    service_type: "",
     category: "",
     description: "",
     skills: "",
@@ -18,8 +39,8 @@ export default function ProfileForm() {
     github_url: "",
     linkedin_url: "",
     other_url: "",
-    image: "",
-    user_id: 0,
+    images: "",
+    user_id: ""
   });
 
   const categories = [
@@ -52,10 +73,11 @@ export default function ProfileForm() {
   const handleChange = (event) => {
     const inputEl = event.target;
     const name = inputEl.name;
-    const value =
-      inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
-    setServices((services) => ({ ...services, [name]: value }));
+    const value = inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
+    setServices((services) => ({ ...services, [name]: value })); 
   };
+
+  console.log(services);
 
   const handleImage = (e) => {
     setImage(e.target.files[0]);
@@ -77,7 +99,7 @@ export default function ProfileForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    /* services.user_id =userID; */
+    services.user_id = userID; 
     try {
       const skills = services.skills.map((skill) => skill.value).join(", ");
       await axios.post(
@@ -93,6 +115,7 @@ export default function ProfileForm() {
     } finally {
       setServices({
         service_type: "",
+        category: "",
         /* profileImage:"", */
         description: "",
         skills: "",
@@ -102,21 +125,27 @@ export default function ProfileForm() {
         github_url: "",
         linkedin_url: "",
         other_url: "",
-        image: "",
+        images: "",
       });
     }
   };
 
   return (
-    <div>
+    <Layout navTwo={true}>
       {success ? (
         <p>Success!</p>
       ) : (
         <>
-          <div className="w-full max-w-lg mx-auto">
+          <div className="w-full max-w-lg mx-auto mb-24">
+            <div className="px-4 sm:px-0">
+              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Almost done. Complete your profile!</h2>
+              <div className="text-gray-900 text-sm">
+              Complete your profile to start matching with jobs
+              </div>
+             </div>
             <form
               onSubmit={(e) => handleSubmit(e)}
-              className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+              className="bg-white shadow-md rounded px-4 sm:px-8 pt-6 pb-8 mb-4 mt-6"
             >
               <div>
                 <h3 className="font-bold mb-4">Profile</h3>
@@ -184,7 +213,7 @@ export default function ProfileForm() {
 
                 <div className="mb-8">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Set Hourly rate:
+                    Set Hourly rate (€):
                     <input
                       type="number"
                       name="hourly_rate"
@@ -270,8 +299,8 @@ export default function ProfileForm() {
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Add additional files or images to showcase your work
-                    <input type="file" name="image" onChange={handleImage} />
-                    <button type="submit">Upload</button>
+                    <input type="file" name="images" onChange={handleImage} />
+                    {/* <button type="submit">Upload</button>*/}
                   </label>
                 </div>
 
@@ -283,6 +312,6 @@ export default function ProfileForm() {
           </div>
         </>
       )}
-    </div>
+     </Layout>
   );
 }
