@@ -54,13 +54,13 @@ const logout = () => {
     <header className="w-full bg-coBlue border-b">
       <div className="max-w-5xl mx-auto flex justify-between py-2.5 px-4 ">
       <Link className="font-medium text-xl text-white" href="/">LOGO</Link>
-        <div className="hidden justify-end gap-2 md:flex self-center">
+        <div className="hidden justify-end gap-2 sm:flex self-center">
         {token && user && (
             <>
               <button className="text-white text-sm cursor-pointer" onClick={logout}>Log out</button>
               <Link href="/dashboard">
                 <img
-                className="w-8 h-8 rounded-full border-2 border-white"
+                className="w-8 h-8 rounded-full border-2 border-white object-cover"
                 src={user.avatar}
                 alt={`profile image of ${user.firstname}`}
                 />
@@ -76,7 +76,7 @@ const logout = () => {
           
         </div>
         {/* Hamburger menu */}
-        <div className="block hamburger md:hidden focus:outline-none">
+        <div className="block hamburger sm:hidden focus:outline-none">
           <button onClick={handleToggle}
           className={`hamburger ${isOpen ? "open" : null}`}>
             <span className="hamburger-top"></span>
@@ -99,7 +99,7 @@ const logout = () => {
             <Link href="/dashboard">
               <div className="flex items-center">
                     <img
-                    className="w-8 h-8 rounded-full border-2 border-white"
+                    className="w-8 h-8 rounded-full border-2 border-white object-cover"
                     src={user.avatar}
                     alt={`profile image of ${user.firstname}`}
                     />

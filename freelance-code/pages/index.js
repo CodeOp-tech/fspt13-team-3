@@ -269,7 +269,7 @@ export default function Home() {
                   
                     <div className="flex justify-center mb-4">
                       <img
-                    className="w-24 h-24 rounded-full"
+                    className="w-24 h-24 rounded-full object-cover"
                     src={user.avatar}
                     alt={`profile image of ${user.firstname}`}
                       />
