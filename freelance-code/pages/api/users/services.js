@@ -4,6 +4,7 @@ const db = require("@/server/helper")
 
 export default async function getServices(req, res) {
   const service_type = req.body.service_type; 
+  const category = req.body.category; 
   const description = req.body.description; 
   const skills = req.body.skills; 
   const languages = req.body.languages; 
@@ -18,7 +19,7 @@ export default async function getServices(req, res) {
   if (req.method === "POST") {
     try {
       await db(
-        `INSERT INTO services (service_type, description, skills, languages, hourly_rate, resume, github_url, linkedin_url, other_url, images, user_id) VALUES ("${service_type}", "${description}", "${skills}", "${languages}", "${hourly_rate}", "${resume}", "${github_url}", "${linkedin_url}", "${other_url}", "${images}", "${user_id}" );`
+        `INSERT INTO services (service_type, service_category, description, skills, languages, hourly_rate, resume, github_url, linkedin_url, other_url, images, user_id) VALUES ("${service_type}", "${category}", "${description}", "${skills}", "${languages}", "${hourly_rate}", "${resume}", "${github_url}", "${linkedin_url}", "${other_url}", "${images}", "${user_id}" );`
       );
       res.status(201).send({ message: "Profile creation successful" });
     } catch (err) {

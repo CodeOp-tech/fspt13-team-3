@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Navbar from "../components/Navbar"; 
 import Footer from "../components/Footer"; 
+import Layout from "../components/Layout"; 
 
 const locations = [
   { name: "Barcelona, Spain", id: 1 }, 
@@ -147,8 +148,7 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-col">
-      <Navbar/>
+    <Layout>
       {/* Hero section */}
       <section className="bg-coBlue w-full text-white">
        <div className="max-w-5xl mx-auto px-4 py-9">
@@ -269,7 +269,7 @@ export default function Home() {
                   
                     <div className="flex justify-center mb-4">
                       <img
-                    className="w-24 h-24 rounded-full"
+                    className="w-24 h-24 rounded-full object-cover"
                     src={user.avatar}
                     alt={`profile image of ${user.firstname}`}
                       />
@@ -303,13 +303,12 @@ export default function Home() {
         ) : null}
         
          {/* END Grid */}
-        <div className="mt-auto flex justify-center">
+        <div className="mt-auto flex justify-center mb-24">
                 <button className="mt-6 border border-black text-sm text-black py-1 px-4 rounded-md">
                 See all freelancers →
                 </button>
         </div>
       </div>
-      <Footer/>
-    </div>
+    </Layout>
   )
 }
