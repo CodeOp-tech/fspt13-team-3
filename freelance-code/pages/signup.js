@@ -99,7 +99,7 @@ export default function Signup() {
             console.log(response?.accessToken);
             console.log(JSON.stringify(response))
             setSuccess(true);
-            router.push(`/PofileForm`);
+            router.push(`/ProfileForm`);
             //clear state and controlled inputs
             //need value attrib on inputs for this
             setUsername('');

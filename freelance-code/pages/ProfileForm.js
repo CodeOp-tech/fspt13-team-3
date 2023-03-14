@@ -4,12 +4,12 @@ import axios from "axios";
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
 
-
 const BASE_URL = "http://localhost:3000";
 
 export default function ProfileForm() {
   const [services, setServices] = useState({
     job_title: "",
+    category: "",
     description: "",
     skills: "",
     languages: "",
@@ -18,19 +18,24 @@ export default function ProfileForm() {
     github_url: "",
     linkedin_url: "",
     other_url: "",
-    image:"",
-    user_id: 4,
+    image: "",
+    user_id: 0,
   });
+
+  const categories = [
+    { name: "Full Stack", id: 1 },
+    { name: "Data Science", id: 2 },
+    { name: "Product Management", id: 3 },
+  ];
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  const [image,setImage] = useState();
-  const [profileImage,setProfileImage] =useState();
+  const [image, setImage] = useState();
+  const [profileImage, setProfileImage] = useState();
 
   const animatedComponents = makeAnimated(); // belongs to autocomplete componen
 
-
-//Autocomplete component
+  //Autocomplete component
   const options = [
     { value: "JavaScript", label: "Javascript" },
     { value: "HTML", label: "HTML" },
@@ -41,15 +46,14 @@ export default function ProfileForm() {
   ];
 
   const handleSkills = (selectedSkills) => {
-    setServices((services) => ({...services, skills: selectedSkills }));
+    setServices((services) => ({ ...services, skills: selectedSkills }));
   };
- 
 
-  
   const handleChange = (event) => {
     const inputEl = event.target;
     const name = inputEl.name;
-    const value = inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
+    const value =
+      inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
     setServices((services) => ({ ...services, [name]: value }));
   };
 
@@ -57,7 +61,7 @@ export default function ProfileForm() {
     setImage(e.target.files[0]);
   };
 
-/*   const handleProfileImage = (e) => {
+  /*   const handleProfileImage = (e) => {
     setProfileImage(e.target.files[0]);
   }; */
 
@@ -75,16 +79,15 @@ export default function ProfileForm() {
     event.preventDefault();
     /* services.user_id =userID; */
     try {
-      const skills = services.skills.map(skill => skill.value).join(', ');
+      const skills = services.skills.map((skill) => skill.value).join(", ");
       await axios.post(
         `${BASE_URL}/api/users/services`,
-        JSON.stringify({...services, skills}),
+        JSON.stringify({ ...services, skills }),
         {
           headers: { "Content-Type": "application/json" },
         }
       );
       setSuccess(true);
-   
     } catch (error) {
       setError("Something went wrong! Please try again later.");
     } finally {
@@ -129,11 +132,28 @@ export default function ProfileForm() {
                     />
                   </label>
                 </div>
+
+                <div className="mb-4">
+                  <label className="block text-gray-900 text-sm font-medium mb-2">Category</label>
                 
-                <div>      Choose your profile image
+                <select
+                  name="category"
+                  value={services.category}
+                  onChange={(e) => handleChange(e)}
+                  className="shadow  border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+                </div>
+
+                {/* <div>      Choose your profile image
                     <label>
-               {/*  <input type="file" onChange={handleProfileImage}></input> */}
-              </label></div>
+                      <input type="file" onChange={handleProfileImage}></input>
+            </label></div> */}
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     About you
@@ -181,14 +201,13 @@ export default function ProfileForm() {
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Set Skills
                     <Select
-      onChange={handleSkills}
-      closeMenuOnSelect={false}
-      components={animatedComponents}
-      defaultValue={options[0]}
-      isMulti
-      options={options}
-    />
-              
+                      onChange={handleSkills}
+                      closeMenuOnSelect={false}
+                      components={animatedComponents}
+                      defaultValue={options[0]}
+                      isMulti
+                      options={options}
+                    />
                   </label>
                 </div>
 
@@ -237,9 +256,7 @@ export default function ProfileForm() {
                 {/* TODO: Image & resume upload option  */}
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-      
-              Upload your resume
-        
+                    Upload your resume
                     <input
                       type="file"
                       name="resume"
@@ -253,16 +270,10 @@ export default function ProfileForm() {
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Add additional files or images to showcase your work
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={handleImage}
-                    />
+                    <input type="file" name="image" onChange={handleImage} />
                     <button type="submit">Upload</button>
                   </label>
                 </div>
-
-            
 
                 <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4">
                   Finish setup
