@@ -126,9 +126,14 @@ export default function Signup() {
         <Layout navTwo={true}>
                 <section>
                     <div>
-                        <h2>Create an account</h2>
-                        <div className="w-full max-w-lg mx-auto">
-                            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                        <div className="w-full max-w-lg mx-auto mb-24">
+                        <div className="px-4 sm:px-0">
+                              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Create an account</h2>
+                              <div className="text-gray-900 text-sm">
+                              Already registered? <Link className="underline underline-offset-2 font-medium text-sm text-coBlue hover:text-blue-800" href="/login">Login</Link>
+                             </div>
+                          </div>
+                            <form className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
                             <div className="mb-4">
                                 <label className="block text-gray-900 text-sm font-medium mb-2" 
@@ -311,10 +316,7 @@ export default function Signup() {
                                 </p>
                                 </div>
                                 <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
-                                <div className="block text-gray-700 text-sm mb-2">
-                                        <p>Already registered? </p>
-                                        <Link className="font-medium text-sm text-coBlue hover:text-blue-800" href="/login">Login</Link>
-                                    </div>
+                                
                                 </form>
                         </div>  
                     </div>

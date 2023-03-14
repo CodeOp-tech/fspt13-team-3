@@ -66,8 +66,14 @@ export default function Login() {
         
                 <section>
                     <div>
-                        <div className="w-full max-w-lg mx-auto">
-                            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                        <div className="w-full max-w-lg mx-auto mb-24">
+                          <div className="px-4 sm:px-0">
+                              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Sign into your account</h2>
+                              <div className="text-gray-900 text-sm">
+                              Not yet a member? <Link className="underline underline-offset-2 font-medium text-sm text-coBlue hover:text-blue-800" href="/signup">Register here</Link>
+                             </div>
+                          </div>
+                            <form className="bg-white shadow-md rounded pt-8 pb-8 mb-4 mt-6 px-4 sm:px-8" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
                             <div className="mb-4">
                                 <label className="block text-gray-900 text-sm font-medium mb-2" htmlFor="username">Username or email:</label>
@@ -94,12 +100,7 @@ export default function Login() {
                                     />
                                     </div>  
                                     <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4">Sign In</button>
-                                    <div className="block text-gray-900 text-sm mb-2">
-                                        <p>Need an account? </p>
-                                        <Link className="font-medium text-sm text-coBlue hover:text-blue-800" href="/signup">Register</Link>
-                                    </div>
-                                    </form>
-                                    
+                                    </form>     
                         </div>
                     </div>
                 </section>

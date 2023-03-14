@@ -136,10 +136,16 @@ export default function ProfileForm() {
         <p>Success!</p>
       ) : (
         <>
-          <div className="w-full max-w-lg mx-auto">
+          <div className="w-full max-w-lg mx-auto mb-24">
+            <div className="px-4 sm:px-0">
+              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Almost done. Complete your profile!</h2>
+              <div className="text-gray-900 text-sm">
+              Complete your profile to start matching with jobs
+              </div>
+             </div>
             <form
               onSubmit={(e) => handleSubmit(e)}
-              className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+              className="bg-white shadow-md rounded px-4 sm:px-8 pt-6 pb-8 mb-4 mt-6"
             >
               <div>
                 <h3 className="font-bold mb-4">Profile</h3>
@@ -207,7 +213,7 @@ export default function ProfileForm() {
 
                 <div className="mb-8">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Set Hourly rate:
+                    Set Hourly rate (€):
                     <input
                       type="number"
                       name="hourly_rate"
