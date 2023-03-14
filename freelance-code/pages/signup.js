@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Link from 'next/link'; 
 import axios from "axios";
 import { useRouter } from "next/router";
+import Layout from "../components/Layout"; 
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
@@ -122,7 +123,7 @@ export default function Signup() {
     }
 
     return (
-        <div>
+        <Layout navTwo={true}>
                 <section>
                     <div>
                         <h2>Create an account</h2>
@@ -318,6 +319,6 @@ export default function Signup() {
                         </div>  
                     </div>
                 </section>
-         </div>
+           </Layout>
       );
   }

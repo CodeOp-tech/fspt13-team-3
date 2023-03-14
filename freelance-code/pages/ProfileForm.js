@@ -3,6 +3,7 @@ import axios from "axios";
 /* import AutoCompleteComponent from "./AutoCompleteComponent"; */
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
+import Layout from "../components/Layout"; 
 
 const BASE_URL = "http://localhost:3000";
 
@@ -130,7 +131,7 @@ export default function ProfileForm() {
   };
 
   return (
-    <div>
+    <Layout navTwo={true}>
       {success ? (
         <p>Success!</p>
       ) : (
@@ -305,6 +306,6 @@ export default function ProfileForm() {
           </div>
         </>
       )}
-    </div>
+     </Layout>
   );
 }

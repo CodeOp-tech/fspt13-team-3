@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Layout from "../components/Layout"; 
 
 export default function Login() {
   const router = useRouter();
@@ -61,7 +62,8 @@ export default function Login() {
   };
   
     return (
-        <div>
+      <Layout navTwo={true}>
+        
                 <section>
                     <div>
                         <div className="w-full max-w-lg mx-auto">
@@ -101,7 +103,8 @@ export default function Login() {
                         </div>
                     </div>
                 </section>
-        </div>
+        
+      </Layout>
     );
   }
 
