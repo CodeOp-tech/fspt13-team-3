@@ -7,8 +7,28 @@ import makeAnimated from "react-select/animated"; // belongs to autocomplete com
 const BASE_URL = "http://localhost:3000";
 
 export default function ProfileForm() {
+  const [userID, setUserID] = useState(null);
+
+  useEffect(() => {
+    const getUserID = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+      const tokenPayload = JSON.parse(
+        Buffer.from(token.split(".")[1], "base64").toString("utf-8")
+      );
+      setUserID(tokenPayload.user_id);
+      console.log(userID);
+    };
+
+    getUserID();
+  }, []);
+
+  console.log(userID);
+
   const [services, setServices] = useState({
-    job_title: "",
+    service_type: "",
     category: "",
     description: "",
     skills: "",
@@ -18,8 +38,8 @@ export default function ProfileForm() {
     github_url: "",
     linkedin_url: "",
     other_url: "",
-    image: "",
-    user_id: 0,
+    images: "",
+    user_id: ""
   });
 
   const categories = [
@@ -52,10 +72,11 @@ export default function ProfileForm() {
   const handleChange = (event) => {
     const inputEl = event.target;
     const name = inputEl.name;
-    const value =
-      inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
-    setServices((services) => ({ ...services, [name]: value }));
+    const value = inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
+    setServices((services) => ({ ...services, [name]: value })); 
   };
+
+  console.log(services);
 
   const handleImage = (e) => {
     setImage(e.target.files[0]);
@@ -77,7 +98,7 @@ export default function ProfileForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    /* services.user_id =userID; */
+    services.user_id = userID; 
     try {
       const skills = services.skills.map((skill) => skill.value).join(", ");
       await axios.post(
@@ -93,6 +114,7 @@ export default function ProfileForm() {
     } finally {
       setServices({
         service_type: "",
+        category: "",
         /* profileImage:"", */
         description: "",
         skills: "",
@@ -102,7 +124,7 @@ export default function ProfileForm() {
         github_url: "",
         linkedin_url: "",
         other_url: "",
-        image: "",
+        images: "",
       });
     }
   };
@@ -270,8 +292,8 @@ export default function ProfileForm() {
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Add additional files or images to showcase your work
-                    <input type="file" name="image" onChange={handleImage} />
-                    <button type="submit">Upload</button>
+                    <input type="file" name="images" onChange={handleImage} />
+                    {/* <button type="submit">Upload</button>*/}
                   </label>
                 </div>
 

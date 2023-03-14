@@ -96,8 +96,7 @@ export default function Signup() {
                 }
             );
             console.log(response?.data);
-            console.log(response?.accessToken);
-            console.log(JSON.stringify(response))
+            localStorage.setItem("token", response?.data?.token);
             setSuccess(true);
             router.push(`/ProfileForm`);
             //clear state and controlled inputs
