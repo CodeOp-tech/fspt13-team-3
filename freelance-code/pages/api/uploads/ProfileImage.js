@@ -1,9 +1,11 @@
 const multer = require('multer');
+const db = require("../../../server/helper");
+
 
 // Set storage engine
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'pages/uploads/');
+    cb(null, 'pages/images/');
   },
   filename: (req, file, cb) => {
     cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
@@ -19,10 +21,12 @@ const upload = multer({
   }
 });
 
+const path = require("path");
+
 // Check file type
 function checkFileType(file, cb) {
   // Allowed filetypes
-  const filetypes = /jpeg|jpg|png|PDF|gif/;
+  const filetypes = /jpeg|jpg|png|pdf|gif|svg/;
   // Check extension
   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   // Check mime type
@@ -30,7 +34,7 @@ function checkFileType(file, cb) {
   if (extname && mimetype) {
     return cb(null, true);
   } else {
-    cb('Error: Images or pfd Only!');
+    cb('Error: Images or pdf Only!');
   }
 }
 

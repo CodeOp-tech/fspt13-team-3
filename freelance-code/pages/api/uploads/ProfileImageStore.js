@@ -3,6 +3,9 @@ import connection from '../../config/database';
 
 
 export default function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(404).json({ message: 'Method not available' });
+  }
     upload.single('image')(req, res, (err) => {
       if (err) {
         res.status(400).json({ message: err });

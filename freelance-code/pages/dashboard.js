@@ -135,10 +135,46 @@ const DashboardPage = () => {
             </section>
           ) : null}
         </div>
-        {userDeleted ? (
+
+ {userDeleted ? (
           <div className="bg-coGrey my-1/6 mx-auto border-solid border-4 border-coGreen rounded-md w-3/4 m-0 py-10 pl-5 leading-4 font-semibold text-lg">
-            Sorry to see you go! Your account has been safely deleted.{" "}
+            Sorry to see you go! Your account has been safely deleted.</div>
+
+      ) : (
+        <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
+          <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
+            <div className="flex flex-col items-center sm:flex-row">
+
+           {/*  {user.avatar !== null ? 
+                  <img
+                    className="item-detail-img"
+                    src={`http://localhost:3000/api/${user.avatar}`}
+                    alt={`photo of ${user.username}`}
+                  /> : null} */}
+
+              <img
+                className="w-32 h-32 rounded-full"
+                src={user.avatar}
+                alt={`profile image of ${user.firstname}`}
+              />
+              <div className="ml-2">
+                <p className="font-medium text-lg text-coBlue">
+                  {user.firstname} {user.lastname}
+                </p>
+                <p className="text-sm">{user.location}</p>
+              </div>
+            </div>
+            <div>
+              <div className="bg-coYellow py-1 px-4 font-bold">
+                {user.hourly_rate} €/hr
+              </div>
+            </div>
           </div>
+          <div className="mb-4">
+            <h3 className="font-bold text-xl">{user.service_type}</h3>
+            <p>{user.description}</p>
+
+         
         ) : (
           <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
             <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
