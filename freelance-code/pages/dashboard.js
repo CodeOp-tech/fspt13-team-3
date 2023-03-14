@@ -141,6 +141,14 @@ const DashboardPage = () => {
         <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
           <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
             <div className="flex flex-col items-center sm:flex-row">
+
+           {/*  {user.avatar !== null ? 
+                  <img
+                    className="item-detail-img"
+                    src={`http://localhost:3000/api/${user.avatar}`}
+                    alt={`photo of ${user.username}`}
+                  /> : null} */}
+
               <img
                 className="w-32 h-32 rounded-full"
                 src={user.avatar}
