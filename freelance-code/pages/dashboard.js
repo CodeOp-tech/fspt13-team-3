@@ -120,7 +120,7 @@ const DashboardPage = () => {
   return (
     <Layout>
       
-      <div className="w-full max-w-3xl mx-auto">
+      <div className="w-full max-w-3xl mx-auto mb-24">
       <div className="mt-8 mb-8 px-4 sm:px-0">
       <Link className="font-light text-sm text-coBlue hover:text-blue-800" href="/">Home</Link> 
       </div>
