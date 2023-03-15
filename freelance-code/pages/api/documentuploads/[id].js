@@ -62,15 +62,12 @@ export default function handler(req, res) {
     try {
       console.log("ID:", id);
       const data = req.body;
-      const docPath = req.file ? /* `/documents/${req.file.filename}` */ req.file.buffer : null;
+      const docPath = req.file ? `/documents/${req.file.filename}` /* req.file.buffer */ : null;
 
-      console.log("File:", req.file);
+      console.log("File:", req.file, req.file.buffer );
       if (docPath) {
-        //new
-/*         await writeFileAsync(`public${docPath}`, req.file.buffer);
- */
         await db(
-          `UPDATE services SET resume = '${docPath}' WHERE service_id = ${id};`
+          `UPDATE services SET resume = '${docPath}' WHERE user_id = ${id};`
         );
       }
               

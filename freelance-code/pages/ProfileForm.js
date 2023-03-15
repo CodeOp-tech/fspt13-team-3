@@ -97,9 +97,39 @@ export default function ProfileForm() {
   //   reader.readAsDataURL(file);
   // };
 
+//pdfupload
+
+
+    const handleDocument = (e) => {
+      setDocument(e.target.files[0]);
+    };
+  
+    const [document, setDocument] = useState(null);
+   
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    //document
+    const formData = new FormData();
+    formData.append("file", document);
+
     services.user_id = userID; 
+    try {
+      const response = await createService();
+      const userID = response?.data.user_id;
+      console.log("test 2", userID);
+      await axios.post(`http://localhost:3000/api/documentuploads/${userID}`, formData, {
+        
+        headers: { "Content-Type": "multipart/form-data"
+    }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const createService = async () => {
     try {
       const skills = services.skills.map((skill) => skill.value).join(", ");
       await axios.post(
@@ -109,6 +139,7 @@ export default function ProfileForm() {
           headers: { "Content-Type": "application/json" },
         }
       );
+      setUserID(response?.data.user_id);
       setSuccess(true);
     } catch (error) {
       setError("Something went wrong! Please try again later.");
@@ -136,6 +167,11 @@ export default function ProfileForm() {
         <p>Success!</p>
       ) : (
         <>
+
+            <label>
+                <input type="file" onChange={handleDocument}></input>
+              </label>
+
           <div className="w-full max-w-lg mx-auto mb-24">
             <div className="px-4 sm:px-0">
               <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Almost done. Complete your profile!</h2>
