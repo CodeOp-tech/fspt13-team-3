@@ -118,7 +118,7 @@ export default function ProfileForm() {
       const userID = response?.data.user_id;
       console.log("test 2", userID);
       await axios.post(
-        `http://localhost:3000/api/documentuploads/${userID}`,
+        `http://localhost:3000/api/documentuploads/${services.user_id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
