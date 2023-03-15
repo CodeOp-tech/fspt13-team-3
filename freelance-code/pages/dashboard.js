@@ -2,7 +2,8 @@ import withAuth from "../components/withAuth";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Popup from "@/components/Popup";
-import Layout from "../components/Layout"; 
+import Layout from "../components/Layout";
+import Link from "next/link";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const DashboardPage = () => {
       setSuccessEmpty(decodeURIComponent(successMessage));
       setTimeout(() => {
         setSuccessEmpty("");
-      }, 3000); 
+      }, 3000);
     }
   }, [successMessage]);
 
@@ -118,7 +119,12 @@ const DashboardPage = () => {
 
   return (
     <Layout>
+      
       <div className="w-full max-w-3xl mx-auto">
+      <div className="mt-8 mb-8 px-4 sm:px-0">
+      <Link className="font-light text-sm text-coBlue hover:text-blue-800" href="/">Home</Link> 
+      </div>
+
         <div>
           {successMessage && successEmpty.length > 0 ? (
             <section className="modal fixed z-10 left-0 top-0 w-full h-full overflow-auto backdrop-brightness-50 backdrop-blur-sm">
@@ -136,11 +142,12 @@ const DashboardPage = () => {
           ) : null}
         </div>
 
-          {userDeleted ? (
+        {userDeleted ? (
           <div className="bg-coGrey my-1/6 mx-auto border-solid border-4 border-coGreen rounded-md w-3/4 m-0 py-10 pl-5 leading-4 font-semibold text-lg">
-            Sorry to see you go! Your account has been safely deleted.</div>
+            Sorry to see you go! Your account has been safely deleted.
+          </div>
+        ) : (
 
-      ) : (
           <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
             <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
               <div className="flex flex-col items-center sm:flex-row">
@@ -171,10 +178,42 @@ const DashboardPage = () => {
               <hr className="mb-2"></hr>
               <div className="flex flex-col gap-1 justify-between sm:flex-row">
                 <div>
-                  <p>{user.linkedin_url}</p>
-                  <p>{user.github_url}</p>
-                  <p>{user.other_url}</p>
-                  <p>{user.images}</p>
+                  {user.github_url && (
+                    <div>
+                      <a
+                        className="underline text-coBlue"
+                        href={`https://${user.github_url}`}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {user.github_url}
+                      </a>
+                    </div>
+                  )}
+                  {user.linkedin_url && (
+                    <div>
+                      <a
+                        className="underline text-coBlue"
+                        href={`https://${user.linkedin_url}`}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {user.linkedin_url}
+                      </a>
+                    </div>
+                  )}
+                  {user.other_url && (
+                    <div>
+                      <a
+                        className="underline text-coBlue"
+                        href={`https://${user.other_url}`}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {user.other_url}
+                      </a>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <iframe src={user.resume} height="300" width="100%"></iframe>
