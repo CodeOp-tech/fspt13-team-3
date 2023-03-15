@@ -223,7 +223,8 @@ const DashboardPage = () => {
             <div className="mb-4">
               <h4 className="font-bold text-lg">Skills</h4>
               <hr className="mb-2"></hr>
-              {user.skills.split(",").map((skill, index) => {
+              {/* fix this to give option if can't be split */}
+               {user.skills.split(",").map((skill, index) => {
                 return (
                   <span
                     key={index}
