@@ -57,6 +57,7 @@ const DashboardPage = () => {
       }
     };
 
+
     getUser();
   }, []);
 
@@ -119,11 +120,16 @@ const DashboardPage = () => {
 
   return (
     <Layout>
-      
       <div className="w-full max-w-3xl mx-auto mb-24">
-      <div className="mt-8 mb-8 px-4 sm:px-0">
-      <Link className="font-light text-sm text-coBlue hover:text-blue-800" href="/">Home</Link> 
-      </div>
+        <div className="mt-8 mb-8 px-4 sm:px-0">
+          <Link
+            className="font-light text-sm text-coBlue hover:text-blue-800"
+            href="/"
+          >
+            Home
+          </Link>
+        </div>
+        
 
         <div>
           {successMessage && successEmpty.length > 0 ? (
@@ -147,7 +153,6 @@ const DashboardPage = () => {
             Sorry to see you go! Your account has been safely deleted.
           </div>
         ) : (
-
           <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
             <div className="flex flex-col gap-3 justify-between mb-4 sm:flex-row">
               <div className="flex flex-col items-center sm:flex-row">
@@ -216,24 +221,30 @@ const DashboardPage = () => {
                   )}
                 </div>
                 <div>
-                  <iframe src={user.resume} height="300" width="100%"></iframe>
+                  <iframe src={user.resume} height="300" width="100%">
+                    <p>
+                      <em>
+                        <strong>ERROR: </strong>
+                        An &#105;frame should be displayed here but your browser
+                        version does not support &#105;frames.{" "}
+                      </em>
+                      Please update your browser to its most recent version and
+                      try again.
+                    </p>
+                  </iframe>
                 </div>
               </div>
             </div>
             <div className="mb-4">
               <h4 className="font-bold text-lg">Skills</h4>
               <hr className="mb-2"></hr>
-              {/* fix this to give option if can't be split */}
-               {user.skills.split(",").map((skill, index) => {
-                return (
-                  <span
-                    key={index}
-                    className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-xs text-gray-900 mr-2 mb-2"
-                  >
-                    {skill}
-                  </span>
-                );
-              })}
+              {user.skills.split(',').map((skill, index) => {
+                    return (
+                      <span key={index} className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-sm text-gray-900 mr-2 mb-2">
+                        {skill}
+                      </span>
+                    )
+                  })}
             </div>
             <div className="mb-4">
               <h4 className="font-bold text-lg">Languages</h4>
