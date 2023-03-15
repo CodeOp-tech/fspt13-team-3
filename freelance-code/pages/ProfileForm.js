@@ -3,7 +3,7 @@ import axios from "axios";
 /* import AutoCompleteComponent from "./AutoCompleteComponent"; */
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
-import Layout from "../components/Layout"; 
+import Layout from "../components/Layout";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -40,7 +40,7 @@ export default function ProfileForm() {
     linkedin_url: "",
     other_url: "",
     images: "",
-    user_id: ""
+    user_id: "",
   });
 
   const categories = [
@@ -73,8 +73,9 @@ export default function ProfileForm() {
   const handleChange = (event) => {
     const inputEl = event.target;
     const name = inputEl.name;
-    const value = inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
-    setServices((services) => ({ ...services, [name]: value })); 
+    const value =
+      inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
+    setServices((services) => ({ ...services, [name]: value }));
   };
 
   console.log(services);
@@ -97,16 +98,13 @@ export default function ProfileForm() {
   //   reader.readAsDataURL(file);
   // };
 
-//pdfupload
+  //pdfupload
 
+  const handleDocument = (e) => {
+    setDocument(e.target.files[0]);
+  };
 
-    const handleDocument = (e) => {
-      setDocument(e.target.files[0]);
-    };
-  
-    const [document, setDocument] = useState(null);
-   
-
+  const [document, setDocument] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -114,16 +112,18 @@ export default function ProfileForm() {
     const formData = new FormData();
     formData.append("file", document);
 
-    services.user_id = userID; 
+    services.user_id = userID;
     try {
       const response = await createService();
       const userID = response?.data.user_id;
       console.log("test 2", userID);
-      await axios.post(`http://localhost:3000/api/documentuploads/${userID}`, formData, {
-        
-        headers: { "Content-Type": "multipart/form-data"
-    }
-      });
+      await axios.post(
+        `http://localhost:3000/api/documentuploads/${userID}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -167,18 +167,15 @@ export default function ProfileForm() {
         <p>Success!</p>
       ) : (
         <>
-
-            <label>
-                <input type="file" onChange={handleDocument}></input>
-              </label>
-
           <div className="w-full max-w-lg mx-auto mb-24">
             <div className="px-4 sm:px-0">
-              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Almost done. Complete your profile!</h2>
+              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">
+                Almost done. Complete your profile!
+              </h2>
               <div className="text-gray-900 text-sm">
-              Complete your profile to start matching with jobs
+                Complete your profile to start matching with jobs
               </div>
-             </div>
+            </div>
             <form
               onSubmit={(e) => handleSubmit(e)}
               className="bg-white shadow-md rounded px-4 sm:px-8 pt-6 pb-8 mb-4 mt-6"
@@ -199,26 +196,24 @@ export default function ProfileForm() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-gray-900 text-sm font-medium mb-2">Category</label>
-                
-                <select
-                  name="category"
-                  value={services.category}
-                  onChange={(e) => handleChange(e)}
-                  className="shadow  border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                >
-                  {categories.map((category) => (
-                    <option key={category.id} value={category.name}>
-                      {category.name}
-                    </option>
-                  ))}
-                </select>
+                  <label className="block text-gray-900 text-sm font-medium mb-2">
+                    Category
+                  </label>
+
+                  <select
+                    name="category"
+                    value={services.category}
+                    onChange={(e) => handleChange(e)}
+                    className="shadow  border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                  >
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
-                {/* <div>      Choose your profile image
-                    <label>
-                      <input type="file" onChange={handleProfileImage}></input>
-            </label></div> */}
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     About you
@@ -318,27 +313,24 @@ export default function ProfileForm() {
                   </label>
                 </div>
 
-                {/* TODO: Image & resume upload option  */}
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Upload your resume
+                    Resume/CV
                     <input
                       type="file"
-                      name="resume"
-                      value={services.resume}
-                      onChange={(e) => handleChange(e)}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                    />
+                      onChange={handleDocument}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue placeholder:text-xs placeholder:text-gray-400 placeholder:font-light"
+                    ></input>
                   </label>
                 </div>
-
+                {/* 
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Add additional files or images to showcase your work
                     <input type="file" name="images" onChange={handleImage} />
-                    {/* <button type="submit">Upload</button>*/}
+                  
                   </label>
-                </div>
+                </div> */}
 
                 <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4">
                   Finish setup
@@ -348,6 +340,6 @@ export default function ProfileForm() {
           </div>
         </>
       )}
-     </Layout>
+    </Layout>
   );
 }
