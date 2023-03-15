@@ -177,8 +177,7 @@ const DashboardPage = () => {
                   <p>{user.images}</p>
                 </div>
                 <div>
-
-                  <iframe src={user.resume} height="500" width="100%"></iframe>
+                  <iframe src={user.resume} height="300" width="100%"></iframe>
                 </div>
               </div>
             </div>

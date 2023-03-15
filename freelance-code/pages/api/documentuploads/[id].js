@@ -1,11 +1,7 @@
 import multer from "multer";
 import path from "path";
 const db = require("@/server/helper");
-import { promisify } from "util";
-import fs from "fs";
-import iconv from 'iconv-lite';
 
-/* const writeFileAsync = promisify(fs.writeFile); */
 
 export const config = {
   api: {

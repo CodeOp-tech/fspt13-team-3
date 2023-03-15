@@ -72,7 +72,7 @@ export default function UserDetailPage() {
                           {user.other_url && ( <div><a className="underline text-coBlue" href={`https://${user.other_url}`} rel="noreferrer" target="_blank" >{user.other_url}</a></div>)}
                       </div>
                       <div>
-                          <p>{user.resume}</p>
+                      <iframe src={user.resume} height="300" width="100%"></iframe>
                       </div>
                   </div>
               </div>
