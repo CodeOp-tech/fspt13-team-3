@@ -1,8 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 const db = require("@/server/helper");
-/* const multer = require("multer");
-const path = require("path"); */
+
 
 export const config = {
     api: {
