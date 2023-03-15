@@ -45,22 +45,18 @@ const storage = multer.diskStorage({
 
   
   export default function handler(req, res) {
-    console.log("hi 1");
     const { id } = req.query;
     if (!id) {
       return res.status(400).json({ message: "ID is required" });
     }
     
     upload(req, res, async function (err) {
-        console.log("hi 3")
         const { id } = req.query;
       if (err) {
         console.log(req.file.filename)
-        console.log("hi 4 END")
         console.log(err);
         return res.status(400).json({ message: err });
       }
-      console.log("hi 5 NEVER GETS HERE")
       console.log("ID:", id);
       const data = req.body;
       const imagePath = req.file ? `/images/${req.file.filename}` : null;
