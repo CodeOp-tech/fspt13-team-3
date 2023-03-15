@@ -16,7 +16,7 @@ const DashboardPage = () => {
       setSuccessEmpty(decodeURIComponent(successMessage));
       setTimeout(() => {
         setSuccessEmpty("");
-      }, 3000); // hide the success message after 3 seconds
+      }, 3000); 
     }
   }, [successMessage]);
 
@@ -177,7 +177,8 @@ const DashboardPage = () => {
                   <p>{user.images}</p>
                 </div>
                 <div>
-                  <p>{user.resume}</p>
+
+                  <iframe src={user.resume} height="500" width="100%"></iframe>
                 </div>
               </div>
             </div>
