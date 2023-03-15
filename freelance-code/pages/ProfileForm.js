@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-/* import AutoCompleteComponent from "./AutoCompleteComponent"; */
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
 import Layout from "../components/Layout";
@@ -66,8 +65,27 @@ export default function ProfileForm() {
     { value: "MySQL", label: "MySQL" },
   ];
 
+    const location = [
+    { value: "United Kingdom", label: "United Kingdom" },
+    { value: "Belgium", label: "Belgium" },
+    { value: "Denmark", label: "Denmark" },
+    { value: "Germany", label: "Germany" },
+    { value: "Ireland", label: "Ireland" },
+    { value: "Greece", label: "Greece" },
+    { value: "Portugal", label: "Portugal" },
+    { value: "Spain", label: "Spain" },
+    { value: "France", label: "France" },
+    { value: "Italy", label: "Italy" },
+    { value: "Luxembourg", label: "Luxembourg" },
+    { value: "the Netherland", label: "the Netherland" },
+  ];
+
   const handleSkills = (selectedSkills) => {
     setServices((services) => ({ ...services, skills: selectedSkills }));
+  };
+
+    const handleLocation = (selectedLocation) => {
+    setServices((services) => ({ ...services, location: selectedLocation }));
   };
 
   const handleChange = (event) => {
@@ -231,13 +249,14 @@ export default function ProfileForm() {
 
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-                    What languages do you speak?
-                    <input
-                      type="text"
-                      name="languages"
-                      value={services.languages}
-                      onChange={(e) => handleChange(e)}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                    Where are you based?
+                    <Select
+                      onChange={handleLocation}
+                      closeMenuOnSelect={true}
+                      components={animatedComponents}
+                      defaultValue={location[0]}
+                      isSingle
+                      options={location}
                     />
                   </label>
                 </div>
@@ -254,6 +273,7 @@ export default function ProfileForm() {
                     />
                   </label>
                 </div>
+                
 
                 <h3 className="font-bold mb-4">Portfolio</h3>
 
@@ -267,6 +287,7 @@ export default function ProfileForm() {
                       defaultValue={options[0]}
                       isMulti
                       options={options}
+                    
                     />
                   </label>
                 </div>
