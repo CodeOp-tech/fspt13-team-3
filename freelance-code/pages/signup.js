@@ -300,9 +300,16 @@ export default function Signup() {
                 </p>
               </div>
 
-              <label>
-                <input type="file" onChange={handleImage}></input>
-              </label>
+              <div className="mb-4">
+                  <label className="block text-gray-900 text-sm font-medium mb-2">
+                    Profile picture
+                    <input
+                      type="file"
+                      onChange={handleImage}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue placeholder:text-xs placeholder:text-gray-400 placeholder:font-light"
+                    ></input>
+                  </label>
+                </div>
 
               <div className="mb-4">
                 <label
