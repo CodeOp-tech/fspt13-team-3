@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import Popup from "@/components/Popup";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import GeneralLoadingMessage from "@/components/GeneralLoadingMessage";
+
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -11,16 +13,6 @@ const DashboardPage = () => {
   const [error, setError] = useState(null);
   const { successMessage } = router.query;
   const [successEmpty, setSuccessEmpty] = useState("");
-
-  useEffect(() => {
-    if (successMessage) {
-      setSuccessEmpty(decodeURIComponent(successMessage));
-      setTimeout(() => {
-        setSuccessEmpty("");
-      }, 3000);
-    }
-  }, [successMessage]);
-
   const [userDeleted, setUserDeleted] = useState(false);
   const [popup, setPopup] = useState({
     show: false,
@@ -30,6 +22,15 @@ const DashboardPage = () => {
   const removeToken = () => {
     localStorage.removeItem("token");
   };
+
+  useEffect(() => {
+    if (successMessage) {
+      setSuccessEmpty(decodeURIComponent(successMessage));
+      setTimeout(() => {
+        setSuccessEmpty("");
+      }, 3000);
+    }
+  }, [successMessage]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -60,26 +61,10 @@ const DashboardPage = () => {
     getUser();
   }, []);
 
-  if (!user) {
-    return (
-      <section className="modal fixed z-10 left-0 top-0 w-full h-full pt-40 overflow-auto backdrop-brightness-50 backdrop-blur-sm">
-        <div className="modal-box bg-white my-1/6 mx-auto p-6 border-solid border-4 border-coGreen rounded-md w-2/4">
-          <div className="modal-head flex justify-center">
-            <p className=" m-0 pt-5 px-0 leading-4 font-semibold text-lg">
-              Hold on just a second
-            </p>
-          </div>
-          <div className="flex justify-center">
-            <img
-              src="https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
-              height="120"
-              width="120"
-            />
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // open edit profile page
+  const openEditProfile = (user_id) => {
+    router.push(`/editprofile/${user_id}`);
+  };
 
   // trigger popup
   const handleDelete = (user_id) => {
@@ -129,10 +114,13 @@ const DashboardPage = () => {
     });
   };
 
-  // open edit profile page
-  const openEditProfile = (user_id) => {
-    router.push(`/editprofile/${user_id}`);
-  };
+
+
+  if (!user) {
+    return (
+    <GeneralLoadingMessage />
+    );
+  }
 
   return (
     <Layout>
