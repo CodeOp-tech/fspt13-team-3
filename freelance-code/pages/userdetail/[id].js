@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Layout from "@/components/Layout"; 
 import Link from 'next/link'; 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import { MdEmail, MdLocationOn } from 'react-icons/md';
 
 export default function UserDetailPage() {
     const router = useRouter();
@@ -51,10 +51,17 @@ export default function UserDetailPage() {
                     alt={`profile image of ${user.firstname}`}
                     />   
                     </div>
-                    <div className="text-center sm:ml-2 sm:text-left">
-                        <p className="font-medium text-lg text-coBlue">{user.firstname} {user.lastname}</p>
-                        <p className="text-sm">{user.location}</p>
-                    </div> 
+                    <div>
+                        <div className="text-center sm:ml-2 sm:text-left">
+                            <p className="ml-0.5 font-medium text-xl text-coBlue">{user.firstname} {user.lastname}</p>
+                            <div className="flex justify-center sm:content-center sm:justify-start">
+                                <div className="grid place-items-center">
+                                    <MdLocationOn /></div>
+                                <p className="py-1 px-1">{user.location}</p>
+                            </div>
+                        </div> 
+                    </div>
+                    
                 </div>
                 <div>
                     <div className="bg-coYellow py-1 px-4 font-bold w-24">{user.hourly_rate} €/hr</div>
@@ -71,10 +78,20 @@ export default function UserDetailPage() {
                       <div>
                           {user.github_url && ( <div className="flex content-center h-10"><div className="grid place-items-center py-1 pr-1"><FaGithub className="text-xl"/></div><a className="underline text-coBlue h-10 p-2" href={`https://${user.github_url}`} rel="noreferrer" target="_blank" >{user.github_url}</a></div>)}
                           {user.linkedin_url && ( <div className="flex content-center h-10"><div className="grid place-items-center py-1 pr-1"><FaLinkedin className="text-xl"/></div><a className="underline text-coBlue h-10 p-2" href={`https://${user.linkedin_url}`} rel="noreferrer" target="_blank" >{user.linkedin_url}</a></div>)}
-                          {user.other_url && ( <div className="mt-6"><a className="underline text-coBlue" href={`https://${user.other_url}`} rel="noreferrer" target="_blank" >{user.other_url}</a></div>)}
+                          {user.other_url && ( <div className="mt-6 mb-4"><a className="underline text-coBlue" href={`https://${user.other_url}`} rel="noreferrer" target="_blank" >{user.other_url}</a></div>)}
                       </div>
                       <div>
-                      <iframe src={user.resume} height="300" width="100%"></iframe>
+                        <iframe src={user.resume} height="300" width="100%">
+                            <p>
+                            <em>
+                                <strong>ERROR: </strong>
+                                An &#105;frame should be displayed here but your browser
+                                version does not support &#105;frames.{" "}
+                            </em>
+                            Please update your browser to its most recent version and
+                            try again.
+                            </p>
+                        </iframe>
                       </div>
                   </div>
               </div>
