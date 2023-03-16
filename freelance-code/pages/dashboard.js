@@ -57,12 +57,28 @@ const DashboardPage = () => {
       }
     };
 
-
     getUser();
   }, []);
 
   if (!user) {
-    return <div>Hold tight while we gather your details...</div>;
+    return (
+      <section className="modal fixed z-10 left-0 top-0 w-full h-full pt-40 overflow-auto backdrop-brightness-50 backdrop-blur-sm">
+        <div className="modal-box bg-white my-1/6 mx-auto p-6 border-solid border-4 border-coGreen rounded-md w-2/4">
+          <div className="modal-head flex justify-center">
+            <p className=" m-0 pt-5 px-0 leading-4 font-semibold text-lg">
+              Hold on just a second
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <img
+              src="https://media.giphy.com/media/KG4PMQ0jyimywxNt8i/giphy.gif"
+              height="120"
+              width="120"
+            />
+          </div>
+        </div>
+      </section>
+    );
   }
 
   // trigger popup
@@ -129,11 +145,10 @@ const DashboardPage = () => {
             Home
           </Link>
         </div>
-        
 
         <div>
           {successMessage && successEmpty.length > 0 ? (
-            <section className="modal fixed z-10 left-0 top-0 w-full h-full overflow-auto backdrop-brightness-50 backdrop-blur-sm">
+            <section className="modal fixed z-10 left-0 top-0 w-full h-full  pt-40 overflow-auto backdrop-brightness-50 backdrop-blur-sm">
               <div className="modal-box bg-white my-1/6 mx-auto p-6 border-solid border-4 border-coGreen rounded-md w-2/4">
                 <div className="modal-head flex justify-between">
                   <p className="m-0 pt-5 px-0 leading-4 font-semibold text-lg">
@@ -238,13 +253,16 @@ const DashboardPage = () => {
             <div className="mb-4">
               <h4 className="font-bold text-lg">Skills</h4>
               <hr className="mb-2"></hr>
-              {user.skills.split(',').map((skill, index) => {
-                    return (
-                      <span key={index} className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-sm text-gray-900 mr-2 mb-2">
-                        {skill}
-                      </span>
-                    )
-                  })}
+              {user.skills.split(",").map((skill, index) => {
+                return (
+                  <span
+                    key={index}
+                    className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-sm text-gray-900 mr-2 mb-2"
+                  >
+                    {skill}
+                  </span>
+                );
+              })}
             </div>
             <div className="mb-4">
               <h4 className="font-bold text-lg">Languages</h4>
