@@ -4,7 +4,7 @@ import { MdLocationOn } from 'react-icons/md';
 
 
 
-const Card = ({user, index}) => {
+const Card = ({user}) => {
 const router = useRouter();
 
 const openUserDetail = (id) => {
@@ -13,7 +13,7 @@ const openUserDetail = (id) => {
   };
 
     return (
-        <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white" key={index}>
+        <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white">
                 <div className="relative">
                     <div className="absolute top-0 right-0 font-medium text-xs">{user.hourly_rate}€/hr</div>
                     

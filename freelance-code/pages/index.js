@@ -277,7 +277,7 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {users.map((user, index) => {
             return (
-              <Card user={user} index={index}/>
+              <Card user={user} key={index}/>
             )
           })}
         </div>
