@@ -193,7 +193,7 @@ export default function Signup() {
                               <div className="text-gray-900 text-sm">
                               Already registered? <Link className="underline underline-offset-2 font-medium text-sm text-coBlue hover:text-blue-800" href="/login">Login</Link>
                              </div>
-                          </div>
+                         </div>
                             <form className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4" onSubmit={handleSubmit}>
                             <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
                             <div className="mb-4">
