@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout"; 
 import Link from 'next/link'; 
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
 export default function UserDetailPage() {
     const router = useRouter();
@@ -67,9 +69,9 @@ export default function UserDetailPage() {
                   <hr className="mb-4"></hr>
                   <div className="flex flex-col gap-1 justify-between text-sm sm:flex-row">
                       <div>
-                          {user.github_url && ( <div><a className="underline text-coBlue" href={`https://${user.github_url}`} rel="noreferrer" target="_blank" >{user.github_url}</a></div>)}
-                          {user.linkedin_url && ( <div><a className="underline text-coBlue" href={`https://${user.linkedin_url}`} rel="noreferrer" target="_blank" >{user.linkedin_url}</a></div>)}
-                          {user.other_url && ( <div><a className="underline text-coBlue" href={`https://${user.other_url}`} rel="noreferrer" target="_blank" >{user.other_url}</a></div>)}
+                          {user.github_url && ( <div className="flex content-center h-10"><div className="grid place-items-center py-1 pr-1"><FaGithub className="text-xl"/></div><a className="underline text-coBlue h-10 p-2" href={`https://${user.github_url}`} rel="noreferrer" target="_blank" >{user.github_url}</a></div>)}
+                          {user.linkedin_url && ( <div className="flex content-center h-10"><div className="grid place-items-center py-1 pr-1"><FaLinkedin className="text-xl"/></div><a className="underline text-coBlue h-10 p-2" href={`https://${user.linkedin_url}`} rel="noreferrer" target="_blank" >{user.linkedin_url}</a></div>)}
+                          {user.other_url && ( <div className="mt-6"><a className="underline text-coBlue" href={`https://${user.other_url}`} rel="noreferrer" target="_blank" >{user.other_url}</a></div>)}
                       </div>
                       <div>
                       <iframe src={user.resume} height="300" width="100%"></iframe>
@@ -95,7 +97,7 @@ export default function UserDetailPage() {
               <div className="mb-4">
                   <h4 className="font-bold text-lg">Contact info</h4> 
                   <hr className="mb-4"></hr>
-                  <a className="text-sm underline text-coBlue" href={`mailto:${user.email}`} rel="noreferrer" target="_blank" >{user.email}</a>
+                  <div className="flex content-center h-10 text-sm"><div className="grid place-items-center py-1 pr-1"><MdEmail className="text-xl"/></div><a className="underline text-coBlue h-10 p-2" href={`mailto:${user.email}`}rel="noreferrer" target="_blank" >{user.email}</a></div>
               </div>
               <div className="flex justify-center">
                   <a href={`mailto:${user.email}`} rel="noreferrer" target="_blank" ><button className="bg-coGreen hover:bg-emerald-500 text-white py-1 px-4 rounded-md">Contact

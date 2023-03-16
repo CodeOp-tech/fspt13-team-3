@@ -2,15 +2,25 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Navbar from "../components/Navbar"; 
-import Footer from "../components/Footer"; 
+import Card from "../components/Card"; 
 import Layout from "../components/Layout"; 
+import { MdSearch } from 'react-icons/md';
 
 const locations = [
-  { name: "Barcelona, Spain", id: 1 }, 
-  { name: "London, England", id: 2 },
-  { name: "Madrid, Spain", id: 3 },
-]; 
+  { name: "United Kingdom", id: 1 },
+  { name: "Belgium", id: 2 },
+  { name: "Denmark", id: 3 },
+  { name: "Germany", id: 4 },
+  { name: "Ireland", id: 5 },
+  { name: "Greece", id: 6 },
+  { name: "Portugal", id: 7 },
+  { name: "Spain", id: 8 },
+  { name: "France", id: 9 },
+  { name: "Italy", id: 10 },
+  { name: "Luxembourg", id: 11 },
+  { name: "the Netherland", id: 12 },
+];
+
 
 const prices = [
   {
@@ -35,12 +45,13 @@ const categories = [
 
 
 const skills = [
-  { name: "research", id: 1 }, 
-  { name: "data science", id: 2 },
-  { name: "marketing", id: 3 },
-  { name: "communication", id: 4 },
-  { name: "frontend", id: 5 },
-]; 
+  { name: "JavaScript", id: 1 },
+  { name: "HTML", id: 2 },
+  { name: "CSS", id: 3  },
+  { name: "ReactJS", id: 4 },
+  { name: "NextJS", id: 5 },
+  { name: "MySQL", id: 6 },
+];
 
 export default function Home() {
   const router = useRouter();
@@ -151,29 +162,32 @@ export default function Home() {
     <Layout>
       {/* Hero section */}
       <section className="bg-coBlue w-full text-white">
-       <div className="max-w-5xl mx-auto px-4 py-9">
+        <div className="max-w-5xl mx-auto px-4 py-9">
           <div className="flex flex-col-reverse items-center gap-6 sm:flex-row">
-            <div>
-              <h1 className="font-bold text-xl sm:text-2xl mb-4">Find freelance services from our CodeOp Bootcamp alumni network</h1>
               <div>
+                <h1 className="font-bold text-xl sm:text-2xl mb-4">Find freelance services from our CodeOp Bootcamp alumni network</h1>
+                <div className="flex">
+                  <div className="grid place-items-center h-10 w-8 bg-white rounded-l-md">
+                    <MdSearch className="text-gray-400 text-xl"/>
+                  </div>
                     <input
                       onChange={searchHandler}
                       type="text"
-                      className="w-full rounded-sm p-1 text-sm text-black h-7 placeholder:text-xs md:w-4/5"
+                      className="w-full text-black bg-white h-10 px-0 pr-16 rounded-r-md text-sm focus:outline-none md:w-4/5"
                       placeholder="Search for services"
                     />
+                </div>
               </div>
-            </div>
-            <div className="">
-              <img
-                className="w-full rounded w-64 sm:w-96"
-                src="https://codeop.tech/wp-content/uploads/2021/06/learn@2x.png"
-                alt="CodeOp Community"
-              />
-            </div>
+              <div>
+                <img
+                  className="w-full rounded w-64 sm:w-96"
+                  src="https://codeop.tech/wp-content/uploads/2021/06/learn@2x.png"
+                  alt="CodeOp Community"
+                />
+              </div>
           </div>
-         </div>
-        </section>
+        </div>
+      </section>
       {/* Freelancer Grid */}
       <div className="w-full max-w-5xl mx-auto px-4">
       <h2 className="text-2xl mt-6 mb-6">Our freelancers</h2>
@@ -263,39 +277,7 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {users.map((user, index) => {
             return (
-              <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white" key={index}>
-                  <div className="relative">
-                    <div className="absolute top-0 right-0 font-medium text-xs">{user.hourly_rate}€/hr</div>
-                  
-                    <div className="flex justify-center mb-4">
-                      <img
-                    className="w-24 h-24 rounded-full object-cover"
-                    src={user.avatar}
-                    alt={`profile image of ${user.firstname}`}
-                      />
-                    </div>
-                  </div>
-                
-                <p className="text-center font-bold text-lg">{user.firstname}</p>
-                <p className="text-center font-light text-base mb-2">{user.service_type}</p>
-                <div>
-                <p className="text-center font-normal text-sm">{user.location}</p>
-                </div>
-                <div className="mt-4 mb-4">
-                {user.skills.split(',').map((skill, index) => {
-                  return (
-                    <span key={index} className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-xs text-gray-900 mr-2 mb-2">
-                      {skill}
-                    </span>
-                  )
-                })}
-                </div>
-                <div className="mt-auto flex justify-center">
-                <button onClick={() => openUserDetail(user.user_id)} className="bg-coGreen hover:bg-emerald-500 text-sm text-white py-1 px-4 rounded-md">
-                  See more
-                </button>
-                </div>
-              </div>
+              <Card user={user} index={index}/>
             )
           })}
         </div>
