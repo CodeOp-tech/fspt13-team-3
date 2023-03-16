@@ -203,8 +203,6 @@ export default function Signup() {
 
   const handleLocation = (selectedLocation) => {
     setLocation((location) => ({ ...location, location: selectedLocation }));
-    const Location =
-    Location.map((location) => location.value).join(", ")
   };
   
 
