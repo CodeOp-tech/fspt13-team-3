@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from 'next/link'; 
 import { MdLogout } from 'react-icons/md';
+import freelancecodeicon from '../public/freelancecodeicon.png'
+import Image from "next/image";
+
 
 const Navbar = () => {
 const [isOpen, setIsOpen] = useState(false);
@@ -51,10 +54,11 @@ const logout = () => {
 };
 
 
+
   return (
     <header className="w-full bg-coBlue border-b">
       <div className="max-w-5xl mx-auto flex justify-between py-2.5 px-4 ">
-      <Link className="font-medium text-xl text-white" href="/">LOGO</Link>
+      <Link className="font-medium text-xl text-white" href="/"><Image src={freelancecodeicon} height="60" width="60" alt="freelance code logo"/></Link>
         <div className="hidden justify-end gap-2 sm:flex self-center">
         {token && user && (
             <>
@@ -66,6 +70,7 @@ const logout = () => {
                 alt={`profile image of ${user.firstname}`}
                 />
               </Link>
+             
             </>
            )}
           {!token && !user && (
