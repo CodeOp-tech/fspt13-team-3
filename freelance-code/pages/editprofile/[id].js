@@ -69,8 +69,11 @@ const EditProfile = () => {
   return (
     <Layout>
       {user && tempProfile ? (
-        <div className="w-full max-w-lg mx-auto">
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="w-full max-w-xl mx-auto mb-24">
+          <div className="px-4 sm:px-0">
+              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Edit your profile</h2>
+           </div>
+          <div className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4">
             <h3 className="font-bold mb-4">Personal Details</h3>
             <div className="mb-4">
               <label className="block text-gray-900 text-sm font-medium mb-2">
@@ -406,7 +409,7 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-8">
               <label className="block text-gray-900 text-sm font-medium mb-2">
                 Resume
               </label>
@@ -428,6 +431,9 @@ const EditProfile = () => {
               </div>
             </div>
 
+
+
+            {/* 
             <div className="mb-4">
               <label className="block text-gray-900 text-sm font-medium mb-2">
                 Add additional files or images to showcase your work
@@ -449,6 +455,7 @@ const EditProfile = () => {
                 />
               </div>
             </div>
+            */}
 
             {changed ? (
               <div>
