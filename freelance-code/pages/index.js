@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import Navbar from "../components/Navbar"; 
-import Footer from "../components/Footer"; 
+import Card from "../components/Card"; 
 import Layout from "../components/Layout"; 
 
 const locations = [
@@ -35,12 +34,13 @@ const categories = [
 
 
 const skills = [
-  { name: "research", id: 1 }, 
-  { name: "data science", id: 2 },
-  { name: "marketing", id: 3 },
-  { name: "communication", id: 4 },
-  { name: "frontend", id: 5 },
-]; 
+  { name: "JavaScript", id: 1 },
+  { name: "HTML", id: 2 },
+  { name: "CSS", id: 3  },
+  { name: "ReactJS", id: 4 },
+  { name: "NextJS", id: 5 },
+  { name: "MySQL", id: 6 },
+];
 
 export default function Home() {
   const router = useRouter();
@@ -263,39 +263,7 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {users.map((user, index) => {
             return (
-              <div className="flex flex-col border border-gray-400 rounded-lg p-5 bg-white" key={index}>
-                  <div className="relative">
-                    <div className="absolute top-0 right-0 font-medium text-xs">{user.hourly_rate}€/hr</div>
-                  
-                    <div className="flex justify-center mb-4">
-                      <img
-                    className="w-24 h-24 rounded-full object-cover"
-                    src={user.avatar}
-                    alt={`profile image of ${user.firstname}`}
-                      />
-                    </div>
-                  </div>
-                
-                <p className="text-center font-bold text-lg">{user.firstname}</p>
-                <p className="text-center font-light text-base mb-2">{user.service_type}</p>
-                <div>
-                <p className="text-center font-normal text-sm">{user.location}</p>
-                </div>
-                <div className="mt-4 mb-4">
-                {user.skills.split(',').map((skill, index) => {
-                  return (
-                    <span key={index} className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-xs text-gray-900 mr-2 mb-2">
-                      {skill}
-                    </span>
-                  )
-                })}
-                </div>
-                <div className="mt-auto flex justify-center">
-                <button onClick={() => openUserDetail(user.user_id)} className="bg-coGreen hover:bg-emerald-500 text-sm text-white py-1 px-4 rounded-md">
-                  See more
-                </button>
-                </div>
-              </div>
+              <Card user={user} index={index}/>
             )
           })}
         </div>
