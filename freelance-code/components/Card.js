@@ -29,10 +29,10 @@ const openUserDetail = (id) => {
                     <div>
                         <p className="text-center font-bold text-lg">{user.firstname}</p>
                         <p className="text-center font-light text-base mb-2">{user.service_type}</p>
-                        <div class="flex justify-center">
-                            <div class="py-1 pr-1"><MdLocationOn /></div>
+                        <div className="flex justify-center">
+                            <div className="py-1 pr-1"><MdLocationOn /></div>
                             <div>
-                            <p class="text-sm">{user.location}</p>
+                            <p className="text-sm">{user.location}</p>
                             </div>
                         </div>
                     </div>

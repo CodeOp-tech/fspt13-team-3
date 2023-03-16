@@ -95,7 +95,7 @@ export default function Signup() {
     const handleImage = (e) => {
       setImage(e.target.files[0]);
     };
-  
+
     const [image, setImage] = useState(null);
     const [avatar, setAvatar] = useState("");
     /* image */
@@ -200,11 +200,8 @@ export default function Signup() {
                                 <label className="block text-gray-900 text-sm font-medium mb-2" 
                                 htmlFor="username">
                                 Username
-                                {/*
-
-                                <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                                <FontAwesomeIcon icon={faTimes} className={validName || !username ? "hide" : "invalid"} />
-                                */}
+                                
+                                
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
@@ -300,15 +297,15 @@ export default function Signup() {
                 </p>
               </div>
 
-              <div className="mb-4">
+              <div className="mb-6">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Profile picture
                     <input
                       type="file"
                       onChange={handleImage}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue placeholder:text-xs placeholder:text-gray-400 placeholder:font-light"
+                      className="mt-2 block"
                     ></input>
-                  </label>
+                   </label>
                 </div>
 
               <div className="mb-4">
@@ -400,10 +397,7 @@ export default function Signup() {
                   htmlFor="password"
                 >
                   Password:
-                  {/*
-                                <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                                <FontAwesomeIcon icon={faTimes} className={validPwd || !password ? "hide" : "invalid"} />
-                                */}
+                 
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
@@ -438,10 +432,7 @@ export default function Signup() {
                   htmlFor="confirm_pwd"
                 >
                   Confirm Password:
-                  {/*
-                                 <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                                 <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
-                                  */}
+                  
 
                                  </label>
                                  <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"

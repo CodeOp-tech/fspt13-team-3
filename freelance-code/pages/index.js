@@ -4,12 +4,23 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Card from "../components/Card"; 
 import Layout from "../components/Layout"; 
+import { MdSearch } from 'react-icons/md';
 
 const locations = [
-  { name: "Barcelona, Spain", id: 1 }, 
-  { name: "London, England", id: 2 },
-  { name: "Madrid, Spain", id: 3 },
-]; 
+  { name: "United Kingdom", id: 1 },
+  { name: "Belgium", id: 2 },
+  { name: "Denmark", id: 3 },
+  { name: "Germany", id: 4 },
+  { name: "Ireland", id: 5 },
+  { name: "Greece", id: 6 },
+  { name: "Portugal", id: 7 },
+  { name: "Spain", id: 8 },
+  { name: "France", id: 9 },
+  { name: "Italy", id: 10 },
+  { name: "Luxembourg", id: 11 },
+  { name: "the Netherland", id: 12 },
+];
+
 
 const prices = [
   {
@@ -151,29 +162,32 @@ export default function Home() {
     <Layout>
       {/* Hero section */}
       <section className="bg-coBlue w-full text-white">
-       <div className="max-w-5xl mx-auto px-4 py-9">
+        <div className="max-w-5xl mx-auto px-4 py-9">
           <div className="flex flex-col-reverse items-center gap-6 sm:flex-row">
-            <div>
-              <h1 className="font-bold text-xl sm:text-2xl mb-4">Find freelance services from our CodeOp Bootcamp alumni network</h1>
               <div>
+                <h1 className="font-bold text-xl sm:text-2xl mb-4">Find freelance services from our CodeOp Bootcamp alumni network</h1>
+                <div className="flex">
+                  <div className="grid place-items-center h-10 w-8 bg-white rounded-l-md">
+                    <MdSearch className="text-gray-400 text-xl"/>
+                  </div>
                     <input
                       onChange={searchHandler}
                       type="text"
-                      className="w-full rounded-sm p-1 text-sm text-black h-7 placeholder:text-xs md:w-4/5"
+                      className="w-full text-black bg-white h-10 px-0 pr-16 rounded-r-md text-sm focus:outline-none md:w-4/5"
                       placeholder="Search for services"
                     />
+                </div>
               </div>
-            </div>
-            <div className="">
-              <img
-                className="w-full rounded w-64 sm:w-96"
-                src="https://codeop.tech/wp-content/uploads/2021/06/learn@2x.png"
-                alt="CodeOp Community"
-              />
-            </div>
+              <div>
+                <img
+                  className="w-full rounded w-64 sm:w-96"
+                  src="https://codeop.tech/wp-content/uploads/2021/06/learn@2x.png"
+                  alt="CodeOp Community"
+                />
+              </div>
           </div>
-         </div>
-        </section>
+        </div>
+      </section>
       {/* Freelancer Grid */}
       <div className="w-full max-w-5xl mx-auto px-4">
       <h2 className="text-2xl mt-6 mb-6">Our freelancers</h2>

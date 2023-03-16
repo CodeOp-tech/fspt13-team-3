@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from 'next/link'; 
+import { MdLogout } from 'react-icons/md';
 
 const Navbar = () => {
 const [isOpen, setIsOpen] = useState(false);
@@ -107,7 +108,12 @@ const logout = () => {
               </div>
             </Link>
             <hr className="w-full"></hr> 
-          <button className="bg-white text-black mb-4 cursor-pointer" onClick={logout}>Log out</button>
+            <div className="flex content-center cursor-pointer h-10" onClick={logout}>
+              <div className="grid place-items-center py-1 pr-1">
+              <MdLogout className="text-xl"/>
+              </div>
+              <div className="text-black mb-4 h-10 p-2">Log out</div>
+            </div>
         </>
         )}
       </div>
