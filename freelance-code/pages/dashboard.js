@@ -6,7 +6,6 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import GeneralLoadingMessage from "@/components/GeneralLoadingMessage";
 
-
 const DashboardPage = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -114,12 +113,8 @@ const DashboardPage = () => {
     });
   };
 
-
-
   if (!user) {
-    return (
-    <GeneralLoadingMessage />
-    );
+    return <GeneralLoadingMessage />;
   }
 
   return (
