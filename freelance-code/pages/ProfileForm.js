@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+/* import AutoCompleteComponent from "./AutoCompleteComponent"; */
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
-import Layout from "../components/Layout";
+import Layout from "../components/Layout"; 
 
 const BASE_URL = "http://localhost:3000";
 
@@ -39,7 +40,7 @@ export default function ProfileForm() {
     linkedin_url: "",
     other_url: "",
     images: "",
-    user_id: "",
+    user_id: ""
   });
 
   const categories = [
@@ -52,6 +53,7 @@ export default function ProfileForm() {
   const [success, setSuccess] = useState(false);
   const [image, setImage] = useState();
   const [profileImage, setProfileImage] = useState();
+  const [skillsValidation, setSkillsValidation] = useState(true);
 
   const animatedComponents = makeAnimated(); // belongs to autocomplete componen
 
@@ -65,35 +67,15 @@ export default function ProfileForm() {
     { value: "MySQL", label: "MySQL" },
   ];
 
-    const location = [
-    { value: "United Kingdom", label: "United Kingdom" },
-    { value: "Belgium", label: "Belgium" },
-    { value: "Denmark", label: "Denmark" },
-    { value: "Germany", label: "Germany" },
-    { value: "Ireland", label: "Ireland" },
-    { value: "Greece", label: "Greece" },
-    { value: "Portugal", label: "Portugal" },
-    { value: "Spain", label: "Spain" },
-    { value: "France", label: "France" },
-    { value: "Italy", label: "Italy" },
-    { value: "Luxembourg", label: "Luxembourg" },
-    { value: "the Netherland", label: "the Netherland" },
-  ];
-
   const handleSkills = (selectedSkills) => {
     setServices((services) => ({ ...services, skills: selectedSkills }));
-  };
-
-    const handleLocation = (selectedLocation) => {
-    setServices((services) => ({ ...services, location: selectedLocation }));
   };
 
   const handleChange = (event) => {
     const inputEl = event.target;
     const name = inputEl.name;
-    const value =
-      inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
-    setServices((services) => ({ ...services, [name]: value }));
+    const value = inputEl.type === "number" ? inputEl.valueAsNumber : inputEl.value;
+    setServices((services) => ({ ...services, [name]: value })); 
   };
 
   console.log(services);
@@ -101,23 +83,6 @@ export default function ProfileForm() {
   const handleImage = (e) => {
     setImage(e.target.files[0]);
   };
-
-  /*   const handleProfileImage = (e) => {
-    setProfileImage(e.target.files[0]);
-  }; */
-
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onload = (event) => {
-  //     const previewUrl = event.target.result;
-  //     // Set the preview URL as a state variable or update a preview element in the DOM
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
-
-  //pdfupload
-
   const handleDocument = (e) => {
     setDocument(e.target.files[0]);
   };
@@ -126,11 +91,10 @@ export default function ProfileForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    //document
     const formData = new FormData();
     formData.append("file", document);
 
-    services.user_id = userID;
+    services.user_id = userID; 
     try {
       const response = await createService();
       const userID = response?.data.user_id;
@@ -149,7 +113,9 @@ export default function ProfileForm() {
 
   const createService = async () => {
     try {
-      const skills = services.skills.map((skill) => skill.value).join(", ");
+
+      const skills =
+      services.skills.map((skill) => skill.value).join(", ")
       await axios.post(
         `${BASE_URL}/api/users/services`,
         JSON.stringify({ ...services, skills }),
@@ -157,7 +123,6 @@ export default function ProfileForm() {
           headers: { "Content-Type": "application/json" },
         }
       );
-      setUserID(response?.data.user_id);
       setSuccess(true);
     } catch (error) {
       setError("Something went wrong! Please try again later.");
@@ -165,7 +130,6 @@ export default function ProfileForm() {
       setServices({
         service_type: "",
         category: "",
-        /* profileImage:"", */
         description: "",
         skills: "",
         languages: "",
@@ -187,13 +151,11 @@ export default function ProfileForm() {
         <>
           <div className="w-full max-w-lg mx-auto mb-24">
             <div className="px-4 sm:px-0">
-              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">
-                Almost done. Complete your profile!
-              </h2>
+              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Almost done. Complete your profile!</h2>
               <div className="text-gray-900 text-sm">
-                Complete your profile to start matching with jobs
+              Complete your profile to start matching with jobs
               </div>
-            </div>
+             </div>
             <form
               onSubmit={(e) => handleSubmit(e)}
               className="bg-white shadow-md rounded px-4 sm:px-8 pt-6 pb-8 mb-4 mt-6"
@@ -214,22 +176,20 @@ export default function ProfileForm() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Category
-                  </label>
-
-                  <select
-                    name="category"
-                    value={services.category}
-                    onChange={(e) => handleChange(e)}
-                    className="shadow  border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                  >
-                    {categories.map((category) => (
-                      <option key={category.id} value={category.name}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
+                  <label className="block text-gray-900 text-sm font-medium mb-2">Category</label>
+                
+                <select
+                  name="category"
+                  value={services.category}
+                  onChange={(e) => handleChange(e)}
+                  className="shadow  border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
                 </div>
 
                 <div className="mb-4">
@@ -249,14 +209,13 @@ export default function ProfileForm() {
 
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Where are you based?
-                    <Select
-                      onChange={handleLocation}
-                      closeMenuOnSelect={true}
-                      components={animatedComponents}
-                      defaultValue={location[0]}
-                      isSingle
-                      options={location}
+                    What languages do you speak?
+                    <input
+                      type="text"
+                      name="languages"
+                      value={services.languages}
+                      onChange={(e) => handleChange(e)}
+                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                     />
                   </label>
                 </div>
@@ -273,7 +232,6 @@ export default function ProfileForm() {
                     />
                   </label>
                 </div>
-                
 
                 <h3 className="font-bold mb-4">Portfolio</h3>
 
@@ -284,13 +242,15 @@ export default function ProfileForm() {
                       onChange={handleSkills}
                       closeMenuOnSelect={false}
                       components={animatedComponents}
-                      defaultValue={options[0]}
+                      placeholder="Select skills from the dropdown menu"
                       isMulti
                       options={options}
-                    
+                      value={services.skills}
                     />
+                    <input value={services.skills} required className="order-none outline-none caret-transparent h-1 mt-0 pt-0 text-transparent"/>
                   </label>
                 </div>
+              
 
                 <div className="flex gap-4">
                   <div className="mb-4">
@@ -344,14 +304,6 @@ export default function ProfileForm() {
                     ></input>
                   </label>
                 </div>
-                {/* 
-                <div className="mb-4">
-                  <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Add additional files or images to showcase your work
-                    <input type="file" name="images" onChange={handleImage} />
-                  
-                  </label>
-                </div> */}
 
                 <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4">
                   Finish setup
@@ -361,6 +313,6 @@ export default function ProfileForm() {
           </div>
         </>
       )}
-    </Layout>
+     </Layout>
   );
 }
