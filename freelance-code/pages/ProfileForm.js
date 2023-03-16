@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
 import Layout from "../components/Layout"; 
+import SuccessMessage from "@/components/SuccessMessage";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -52,6 +53,7 @@ export default function ProfileForm() {
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const successMessage = ("Your profile has been sucessfully created!")
   const [image, setImage] = useState();
   const [profileImage, setProfileImage] = useState();
   const [skillsValidation, setSkillsValidation] = useState(true);
@@ -148,7 +150,7 @@ export default function ProfileForm() {
   return (
     <Layout navTwo={true}>
       {success ? (
-        <p>Success!</p>
+        <SuccessMessage successMessage={successMessage}/>
       ) : (
         <>
           <div className="w-full max-w-lg mx-auto mb-24">
