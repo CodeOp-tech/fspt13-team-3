@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-/* import AutoCompleteComponent from "./AutoCompleteComponent"; */
+import { useRouter } from "next/router";
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
 import Layout from "../components/Layout"; 
@@ -8,6 +8,7 @@ import Layout from "../components/Layout";
 const BASE_URL = "http://localhost:3000";
 
 export default function ProfileForm() {
+  const router = useRouter();
   const [userID, setUserID] = useState(null);
 
   useEffect(() => {
@@ -124,6 +125,7 @@ export default function ProfileForm() {
         }
       );
       setSuccess(true);
+      router.push(`/dashboard`);
     } catch (error) {
       setError("Something went wrong! Please try again later.");
     } finally {
