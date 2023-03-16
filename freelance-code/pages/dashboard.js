@@ -10,7 +10,6 @@ import { MdEmail, MdLocationOn } from 'react-icons/md';
 import { BsChevronCompactRight } from 'react-icons/bs';
 import SuccessMessage from "@/components/SuccessMessage";
 
-
 const DashboardPage = () => {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -119,12 +118,8 @@ const DashboardPage = () => {
     });
   };
 
-
-
   if (!user) {
-    return (
-    <GeneralLoadingMessage />
-    );
+    return <GeneralLoadingMessage />;
   }
 
   return (
