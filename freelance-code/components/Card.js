@@ -39,7 +39,7 @@ const openUserDetail = (id) => {
                 </div>
                 
                 <div className="mt-4 mb-4">
-                    {user.skills.split(',').map((skill, index) => {
+                    {user.skills.split(',').slice(0, 5).map((skill, index) => {
                     return (
                         <span key={index} className="inline-block bg-coGrey rounded-full px-3 py-0.5 text-xs text-gray-900 mr-2 mb-2">
                         {skill}

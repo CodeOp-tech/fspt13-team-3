@@ -3,7 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 
 function handleClick() {
-  Router.push("/aboutpage");
+  Router.push("/about");
 }
 
 const Footer = () => {
@@ -16,7 +16,7 @@ const Footer = () => {
         </div>
         <div className="flex flex-col justify-around md:space-x-24 md:flex-row">
           <div className="flex flex-col md:space-y-3 text-white mb-6">
-            <Link href="/aboutpage">
+            <Link href="/about">
               <button onClick={handleClick}>ABOUT</button>
             </Link>
           </div>
