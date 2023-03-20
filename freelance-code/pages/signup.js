@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Layout from "../components/Layout"; 
+import Layout from "../components/Layout";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
@@ -14,10 +14,8 @@ const PWD_REGEX =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&].{8,24}$/;
 
 export default function Signup() {
-
   const userRef = useRef();
   const errRef = useRef();
-
 
   const [username, setUsername] = useState("");
   const [validName, setValidName] = useState(false);
@@ -39,7 +37,6 @@ export default function Signup() {
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  
   const [validAvatar, setValidAvatar] = useState(false);
   const [avatarFocus, setAvatarFocus] = useState(false);
 
@@ -89,16 +86,16 @@ export default function Signup() {
 
   const router = useRouter();
 
-  const [userId, setUserId] = useState(null)
+  const [userId, setUserId] = useState(null);
 
-    /* image */
-    const handleImage = (e) => {
-      setImage(e.target.files[0]);
-    };
+  /* image */
+  const handleImage = (e) => {
+    setImage(e.target.files[0]);
+  };
 
-    const [image, setImage] = useState(null);
-    const [avatar, setAvatar] = useState("");
-    /* image */
+  const [image, setImage] = useState(null);
+  const [avatar, setAvatar] = useState("");
+  /* image */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,27 +103,23 @@ export default function Signup() {
     formData.append("file", image);
 
     /* const userResponse = await createUser(); */
-   
+
     try {
       const response = await createUser();
       const userId = response?.data.user_id;
       console.log("test 2", userId);
-     
-      
-  /*     const response = await createUser();
-      const userId = response?.data.user_id; */
-     /*  console.log("HIIII", response?.data.user_id) */
-    
-      await axios.post(`http://localhost:3000/api/uploads/${userId}`, formData, {
-        
-        headers: { "Content-Type": "multipart/form-data"
-    }
-      });
+
+      await axios.post(
+        `http://localhost:3000/api/uploads/${userId}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const createUser = async () => {
     console.log(username, password);
@@ -145,21 +138,19 @@ export default function Signup() {
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
-
         }
-       
       );
-      
+
       setUserId(response?.data.user_id); // Store the user_id in state
-      console.log("test1", userId)
-  
-      console.log("hi", response)
+      console.log("test1", userId);
+
+      console.log("hi", response);
       console.log(response?.data.user_id);
       console.log(response?.accessToken);
       console.log(JSON.stringify(response));
       localStorage.setItem("token", response?.data?.token);
       setSuccess(true);
-       router.push(`/ProfileForm`);
+      router.push(`/ProfileForm`);
       //clear state and controlled inputs
       //need value attrib on inputs for this
       setUsername("");
@@ -170,7 +161,7 @@ export default function Signup() {
       setAvatar(image);
       setPassword("");
       setMatchPwd("");
-      return response 
+      return response;
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -183,25 +174,46 @@ export default function Signup() {
     }
   };
 
-    return (
-        <Layout navTwo={true}>
-                <section>
-                    <div>
-                        <div className="w-full max-w-lg mx-auto mb-24">
-                        <div className="px-4 sm:px-0">
-                              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">Create an account</h2>
-                              <div className="text-gray-900 text-sm">
-                              Already registered? <Link className="underline underline-offset-2 font-medium text-sm text-coBlue hover:text-blue-800" href="/login">Login</Link>
-                             </div>
-                         </div>
-                            <form className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4" onSubmit={handleSubmit}>
-                            <div ref={errRef} className={errMsg ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4" : "absolute"} aria-live="assertive">{errMsg}</div>
-                            <div className="mb-4">
-                                <label className="block text-gray-900 text-sm font-medium mb-2" 
-                                htmlFor="username">
-                                Username
-                                
-                                
+  return (
+    <Layout navTwo={true}>
+      <section>
+        <div>
+          <div className="w-full max-w-lg mx-auto mb-24">
+            <div className="px-4 sm:px-0">
+              <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">
+                Create an account
+              </h2>
+              <div className="text-gray-900 text-sm">
+                Already registered?{" "}
+                <Link
+                  className="underline underline-offset-2 font-medium text-sm text-coBlue hover:text-blue-800"
+                  href="/login"
+                >
+                  Login
+                </Link>
+              </div>
+            </div>
+            <form
+              className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4"
+              onSubmit={handleSubmit}
+            >
+              <div
+                ref={errRef}
+                className={
+                  errMsg
+                    ? "bg-red-100 border border-red-400 text-red-700 p-2 rounded relative text-xs mb-4"
+                    : "absolute"
+                }
+                aria-live="assertive"
+              >
+                {errMsg}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-gray-900 text-sm font-medium mb-2"
+                  htmlFor="username"
+                >
+                  Username
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
@@ -298,15 +310,15 @@ export default function Signup() {
               </div>
 
               <div className="mb-6">
-                  <label className="block text-gray-900 text-sm font-medium mb-2">
-                    Profile picture
-                    <input
-                      type="file"
-                      onChange={handleImage}
-                      className="mt-2 block"
-                    ></input>
-                   </label>
-                </div>
+                <label className="block text-gray-900 text-sm font-medium mb-2">
+                  Profile picture
+                  <input
+                    type="file"
+                    onChange={handleImage}
+                    className="mt-2 block"
+                  ></input>
+                </label>
+              </div>
 
               <div className="mb-4">
                 <label
@@ -397,7 +409,6 @@ export default function Signup() {
                   htmlFor="password"
                 >
                   Password:
-                 
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
@@ -432,32 +443,41 @@ export default function Signup() {
                   htmlFor="confirm_pwd"
                 >
                   Confirm Password:
-                  
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                  type="password"
+                  id="confirm_pwd"
+                  onChange={(e) => setMatchPwd(e.target.value)}
+                  value={matchPwd}
+                  required
+                  aria-invalid={validMatch ? "false" : "true"}
+                  aria-describedby="confirmnote"
+                  onFocus={() => setMatchFocus(true)}
+                  onBlur={() => setMatchFocus(false)}
+                />
 
-                                 </label>
-                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                                            type="password"
-                                            id="confirm_pwd"
-                                            onChange={(e) => setMatchPwd(e.target.value)}
-                                            value={matchPwd}
-                                            required
-                                            aria-invalid={validMatch ? "false" : "true"}
-                                            aria-describedby="confirmnote"
-                                            onFocus={() => setMatchFocus(true)}
-                                            onBlur={() => setMatchFocus(false)}
-                                        />
-                               
-                                <p id="confirmnote" className={matchFocus && !validMatch ? "text-red-500 text-xs italic pt-2.5" : "absolute hidden"}>
-                                 Must match the first password input field.
-                                </p>
-                                </div>
-                                <button className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4" disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
-                                
-                                </form>
-                        </div>  
-                    </div>
-                </section>
-           </Layout>
-      );
-  }
-
+                <p
+                  id="confirmnote"
+                  className={
+                    matchFocus && !validMatch
+                      ? "text-red-500 text-xs italic pt-2.5"
+                      : "absolute hidden"
+                  }
+                >
+                  Must match the first password input field.
+                </p>
+              </div>
+              <button
+                className="w-full bg-coGreen hover:bg-emerald-500 text-white py-2 px-4 rounded-md mb-4"
+                disabled={!validName || !validPwd || !validMatch ? true : false}
+              >
+                Sign Up
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+}

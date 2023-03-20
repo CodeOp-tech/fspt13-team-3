@@ -56,6 +56,8 @@ const storage = multer.diskStorage({
         console.log(err);
         return res.status(400).json({ message: err });
       }
+
+      try {
       console.log("ID:", id);
       const data = req.body;
       const imagePath = req.file ? `/images/${req.file.filename}` : null;
@@ -83,6 +85,9 @@ const storage = multer.diskStorage({
         data: data,
         imagePath: imagePath,
       });
+    } catch (err) {
+      return res.status(500).json({ message: "Server error" });
+    }
     });
   }
   
