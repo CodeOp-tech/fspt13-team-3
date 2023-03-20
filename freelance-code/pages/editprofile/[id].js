@@ -11,6 +11,7 @@ const EditProfile = () => {
   const [tempProfile, setTempProfile] = useState();
   const [changed, setChanged] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("Sorry an error has occurred");
 
   const categories = [
     { name: "Full Stack", id: 1 },
@@ -44,17 +45,17 @@ const EditProfile = () => {
         },
         body: JSON.stringify(tempProfile),
       });
-  
+
       // Upload avatar if changed
       if (changed) {
         const formData = new FormData();
         formData.append("file", tempProfile.avatar);
-  
+
         await fetch(`${BASE_URL}/api/uploads/${user_id}`, {
           method: "POST",
           body: formData,
         });
-  
+
         // Update user details with new avatar path
         await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
           method: "PATCH",
@@ -66,7 +67,29 @@ const EditProfile = () => {
           }),
         });
       }
+
+      if (tempProfile.resume) {
+        const formData = new FormData();
+        formData.append("file", tempProfile.resume);
   
+        await fetch(`${BASE_URL}/api/documentuploads/${user_id}`, {
+          method: "POST",
+          body: formData,
+        });
+  
+        // Update user details with new resume path
+        await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            resume: `/documentuploads/${user_id}/${tempProfile.resume.name}`,
+          }),
+        });
+      }
+  
+
       // Route to other page
       handleUpdateSuccess();
       router.push({
@@ -77,7 +100,6 @@ const EditProfile = () => {
       setError(error);
     }
   };
-  
 
   const handleUpdateSuccess = () => {
     setSuccessMessage("Your details have been updated");
@@ -215,49 +237,6 @@ const EditProfile = () => {
                 />
               </div>
             </div>
-
-            {/* ??? */}
-
-            {/*             <div className="mb-8">
-  <label className="block text-gray-900 text-sm font-medium mb-2">
-    Profile Picture
-  </label>
-  <div>
-    <input
-      type="file"
-      onChange={(e) => {
-        setChanged(true);
-        setTempProfile({
-          ...tempProfile,
-          picture: e.target.files[0],
-        });
-      }}
-      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-    />
-  </div>
-</div> */}
-
-            {/*   <div className="mb-4">
-              <label className="block text-gray-900 text-sm font-medium mb-2">
-                Avatar
-              </label>
-              <div>
-                <input
-                  type="text"
-                  value={tempProfile.avatar}
-                  name="avatar"
-                  maxLength="225"
-                  onChange={(e) => {
-                    setChanged(true);
-                    setTempProfile({
-                      ...tempProfile,
-                      avatar: e.target.value,
-                    });
-                  }}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                />
-              </div>
-            </div> */}
 
             <div className="mb-8">
               <label className="block text-gray-900 text-sm font-medium mb-2">
@@ -488,46 +467,30 @@ const EditProfile = () => {
                 Resume
               </label>
               <div>
-                <input
-                  type="text"
-                  value={tempProfile.resume}
-                  name="resume"
-                  maxLength="225"
-                  onChange={(e) => {
-                    setChanged(true);
-                    setTempProfile({
-                      ...tempProfile,
-                      resume: e.target.value,
-                    });
-                  }}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                />
+                {tempProfile.resume ? (
+                  <iframe
+                    src={tempProfile.resume}
+                    alt="resume"
+                    className="h-16 w-16"
+                  />
+                ) : null}{" "}
               </div>
-            </div>
-
-            {/* 
-            <div className="mb-4">
-              <label className="block text-gray-900 text-sm font-medium mb-2">
-                Add additional files or images to showcase your work
-              </label>
               <div>
                 <input
-                  type="text"
-                  value={tempProfile.images}
-                  name="images"
-                  maxLength="225"
+                  type="file"
+                  name="resume"
+                  /*  accept="/*" */
                   onChange={(e) => {
                     setChanged(true);
                     setTempProfile({
                       ...tempProfile,
-                      images: e.target.value,
+                      resume: e.target.files[0],
                     });
                   }}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                  className="py-2"
                 />
               </div>
             </div>
-            */}
 
             {changed ? (
               <div>
