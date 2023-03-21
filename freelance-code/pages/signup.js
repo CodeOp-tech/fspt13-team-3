@@ -3,6 +3,9 @@ import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
+import Select from "react-select"; // belongs to autocomplete component
+import makeAnimated from "react-select/animated"; // belongs to autocomplete component
+
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
@@ -109,6 +112,12 @@ export default function Signup() {
       const userId = response?.data.user_id;
       console.log("test 2", userId);
 
+
+      /*     const response = await createUser();
+      const userId = response?.data.user_id; */
+      /*  console.log("HIIII", response?.data.user_id) */
+
+
       await axios.post(
         `http://localhost:3000/api/uploads/${userId}`,
         formData,
@@ -123,6 +132,7 @@ export default function Signup() {
 
   const createUser = async () => {
     console.log(username, password);
+    
     try {
       const response = await axios.post(
         `http://localhost:3000/api/auth/signup`,
@@ -173,6 +183,32 @@ export default function Signup() {
       errRef.current.focus();
     }
   };
+
+
+  const LocationOptions = [
+    { value: "United Kingdom", label: "United Kingdom" },
+    { value: "Belgium", label: "Belgium" },
+    { value: "Denmark", label: "Denmark" },
+    { value: "Germany", label: "Germany" },
+    { value: "Ireland", label: "Ireland" },
+    { value: "Greece", label: "Greece" },
+    { value: "Portugal", label: "Portugal" },
+    { value: "Spain", label: "Spain" },
+    { value: "France", label: "France" },
+    { value: "Italy", label: "Italy" },
+    { value: "Luxembourg", label: "Luxembourg" },
+    { value: "the Netherland", label: "the Netherland" },
+
+  ];
+
+
+  const animatedComponents = makeAnimated(); // belongs to autocomplete componen
+
+  const handleLocation = (selectedLocation) => {
+    setLocation((location) => ({ ...location, location: selectedLocation }));
+  };
+  
+
 
   return (
     <Layout navTwo={true}>
@@ -327,7 +363,19 @@ export default function Signup() {
                 >
                   Location
                 </label>
-                <input
+
+                <Select
+                  onChange={handleLocation}
+                  //value={Location}
+                  required
+                  closeMenuOnSelect={true}
+                  components={animatedComponents}
+                  defaultValue={LocationOptions[0]}
+                  isSingle
+                  options={LocationOptions}
+                />
+
+                {/* <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
                   type="text"
                   id="location"
@@ -352,7 +400,7 @@ export default function Signup() {
                   <br />
                 </p>
               </div>
-              <div className="mb-4">
+              <div className="mb-4"> */}
                 <label
                   className="block text-gray-900 text-sm font-medium mb-2"
                   htmlFor="email"
