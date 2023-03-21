@@ -55,17 +55,6 @@ const EditProfile = () => {
           method: "POST",
           body: formData,
         });
-
-        // Update user details with new avatar path
-        await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            avatar: `/uploads/${user_id}/${tempProfile.avatar.name}`,
-          }),
-        });
       }
 
       if (tempProfile.resume) {
@@ -75,17 +64,6 @@ const EditProfile = () => {
         await fetch(`${BASE_URL}/api/documentuploads/${user_id}`, {
           method: "POST",
           body: formData,
-        });
-
-        // Update user details with new resume path
-        await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            resume: `/documentuploads/${user_id}/${tempProfile.resume.name}`,
-          }),
         });
       }
 
