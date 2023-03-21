@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import Select from "react-select"; // belongs to autocomplete component
 import makeAnimated from "react-select/animated"; // belongs to autocomplete component
 
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const FIRSTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
 const LASTNAME_REGEX = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
@@ -90,7 +91,6 @@ export default function Signup() {
 
   const [userId, setUserId] = useState(null);
 
-
   /* image */
   const handleImage = (e) => {
     setImage(e.target.files[0]);
@@ -112,9 +112,11 @@ export default function Signup() {
       const userId = response?.data.user_id;
       console.log("test 2", userId);
 
+
       /*     const response = await createUser();
       const userId = response?.data.user_id; */
       /*  console.log("HIIII", response?.data.user_id) */
+
 
       await axios.post(
         `http://localhost:3000/api/uploads/${userId}`,
@@ -182,6 +184,7 @@ export default function Signup() {
     }
   };
 
+
   const LocationOptions = [
     { value: "United Kingdom", label: "United Kingdom" },
     { value: "Belgium", label: "Belgium" },
@@ -205,6 +208,7 @@ export default function Signup() {
     setLocation((location) => ({ ...location, location: selectedLocation }));
   };
   
+
 
   return (
     <Layout navTwo={true}>

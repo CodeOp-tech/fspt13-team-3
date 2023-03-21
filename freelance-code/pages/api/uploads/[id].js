@@ -56,11 +56,24 @@ const storage = multer.diskStorage({
         console.log(err);
         return res.status(400).json({ message: err });
       }
+
+      try {
       console.log("ID:", id);
       const data = req.body;
       const imagePath = req.file ? `/images/${req.file.filename}` : null;
       console.log("File:", req.file);
-      if (imagePath) {
+      //if (imagePath) {
+
+        //testing updating image
+        if (imagePath) {
+          const user = await db(`SELECT * FROM user_table WHERE user_id = ${id};`);
+          if (user && user.avatar) {
+            const oldImagePath = user.avatar.replace(/^\//, '');
+            fs.unlink(`public/${oldImagePath}`, (err) => {
+              if (err) console.log(err);
+              console.log(`${oldImagePath} was deleted`);
+            });
+          }
        
         await db(
           `UPDATE user_table SET avatar = '${imagePath}' WHERE user_id = ${id};`
@@ -72,6 +85,9 @@ const storage = multer.diskStorage({
         data: data,
         imagePath: imagePath,
       });
+    } catch (err) {
+      return res.status(500).json({ message: "Server error" });
+    }
     });
   }
   

@@ -61,7 +61,18 @@ export default function handler(req, res) {
       const docPath = req.file ? `/documents/${req.file.filename}` /* req.file.buffer */ : null;
 
       console.log("File:", req.file, req.file.buffer );
+      //testing updatingpdf
       if (docPath) {
+        const services = await db(`SELECT * FROM services WHERE user_id = ${id};`);
+          if (services && services.resume) {
+            const oldDocPath = services.resume.replace(/^\//, '');
+            fs.unlink(`public/${oldDocPath}`, (err) => {
+              if (err) console.log(err);
+              console.log(`${oldDocPath} was deleted`);
+            });
+          }
+
+
         await db(
           `UPDATE services SET resume = '${docPath}' WHERE user_id = ${id};`
         );

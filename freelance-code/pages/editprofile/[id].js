@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Layout from "@/components/Layout"; 
+import Layout from "@/components/Layout";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -10,8 +10,8 @@ const EditProfile = () => {
   const [user, setUser] = useState(null);
   const [tempProfile, setTempProfile] = useState();
   const [changed, setChanged] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState("Sorry an error has occurred");
 
   const categories = [
     { name: "Full Stack", id: 1 },
@@ -35,9 +35,9 @@ const EditProfile = () => {
     getUser();
   }, [id]);
 
-  // Update item
   const updateProfile = async (user_id) => {
     try {
+      // Update user details
       await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
         method: "PATCH",
         headers: {
@@ -46,31 +46,78 @@ const EditProfile = () => {
         body: JSON.stringify(tempProfile),
       });
 
-      //route to other page
+      // Upload avatar if changed
+      if (changed) {
+        const formData = new FormData();
+        formData.append("file", tempProfile.avatar);
+
+        await fetch(`${BASE_URL}/api/uploads/${user_id}`, {
+          method: "POST",
+          body: formData,
+        });
+
+        // Update user details with new avatar path
+        await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            avatar: `/uploads/${user_id}/${tempProfile.avatar.name}`,
+          }),
+        });
+      }
+
+      if (tempProfile.resume) {
+        const formData = new FormData();
+        formData.append("file", tempProfile.resume);
+
+        await fetch(`${BASE_URL}/api/documentuploads/${user_id}`, {
+          method: "POST",
+          body: formData,
+        });
+
+        // Update user details with new resume path
+        await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            resume: `/documentuploads/${user_id}/${tempProfile.resume.name}`,
+          }),
+        });
+      }
+
+      // Route to other page
       handleUpdateSuccess();
       router.push({
-        pathname: '/dashboard',
-        query: { successMessage: 'Your details have been updated' },
+        pathname: "/dashboard",
+        query: { successMessage: "Your details have been updated" },
       });
     } catch (error) {
       setError(error);
     }
   };
 
-    const handleUpdateSuccess = () => {
-    setSuccessMessage('Your details have been updated');
+  const handleUpdateSuccess = () => {
+    setSuccessMessage("Your details have been updated");
   };
 
   const goBack = () => {
-    router.push('/dashboard',
-    );
-  }
+    router.push("/dashboard");
+  };
 
   return (
     <Layout>
       {user && tempProfile ? (
-        <div className="w-full max-w-lg mx-auto">
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="w-full max-w-xl mx-auto mb-24">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-2xl font-light mb-4 text-coBlue mt-8 sm:text-3xl">
+              Edit your profile
+            </h2>
+          </div>
+          <div className="bg-white shadow-md rounded px-4 sm:px-8 pt-8 pb-8 mt-6 mb-4">
             <h3 className="font-bold mb-4">Personal Details</h3>
             <div className="mb-4">
               <label className="block text-gray-900 text-sm font-medium mb-2">
@@ -165,19 +212,31 @@ const EditProfile = () => {
                 Avatar
               </label>
               <div>
+                {tempProfile.avatar ? (
+                  <img
+                    src={
+                      typeof tempProfile.avatar === "string"
+                        ? tempProfile.avatar
+                        : URL.createObjectURL(tempProfile.avatar)
+                    }
+                    alt="avatar"
+                    className="h-16 w-16 rounded-full mb-2"
+                  />
+                ) : (
+                  <div className="h-16 w-16 rounded-full mb-2 bg-gray-200"></div>
+                )}
                 <input
-                  type="text"
-                  value={tempProfile.avatar}
+                  type="file"
                   name="avatar"
-                  maxLength="225"
+                  accept="image/*"
                   onChange={(e) => {
                     setChanged(true);
                     setTempProfile({
                       ...tempProfile,
-                      avatar: e.target.value,
+                      avatar: e.target.files[0],
                     });
                   }}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                  className="py-2"
                 />
               </div>
             </div>
@@ -406,46 +465,32 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-8">
               <label className="block text-gray-900 text-sm font-medium mb-2">
                 Resume
               </label>
               <div>
-                <input
-                  type="text"
-                  value={tempProfile.resume}
-                  name="resume"
-                  maxLength="225"
-                  onChange={(e) => {
-                    setChanged(true);
-                    setTempProfile({
-                      ...tempProfile,
-                      resume: e.target.value,
-                    });
-                  }}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
-                />
+                {tempProfile.resume ? (
+                  <iframe
+                    src={tempProfile.resume}
+                    alt="resume"
+                    className="h-16 w-16"
+                  />
+                ) : null}{" "}
               </div>
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-gray-900 text-sm font-medium mb-2">
-                Add additional files or images to showcase your work
-              </label>
               <div>
                 <input
-                  type="text"
-                  value={tempProfile.images}
-                  name="images"
-                  maxLength="225"
+                  type="file"
+                  name="resume"
+                  /*  accept="/*" */
                   onChange={(e) => {
                     setChanged(true);
                     setTempProfile({
                       ...tempProfile,
-                      images: e.target.value,
+                      resume: e.target.files[0],
                     });
                   }}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:border-coBlue"
+                  className="py-2"
                 />
               </div>
             </div>

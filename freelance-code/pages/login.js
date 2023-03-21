@@ -35,14 +35,14 @@ export default function Login() {
           withCredentials: true,
         }
       );
-      /*  console.log(JSON.stringify(response?.data)); */
+   
       console.log(response?.data);
-      //console.log(JSON.stringify(response));
+    
 
       //store it locally
       localStorage.setItem("token", response?.data?.token);
 
-      /* console.log(response?.data?.message, response?.data?.token); */
+     
 
       setUsername("");
       setPassword("");
