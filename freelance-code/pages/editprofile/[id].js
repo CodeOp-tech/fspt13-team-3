@@ -71,12 +71,12 @@ const EditProfile = () => {
       if (tempProfile.resume) {
         const formData = new FormData();
         formData.append("file", tempProfile.resume);
-  
+
         await fetch(`${BASE_URL}/api/documentuploads/${user_id}`, {
           method: "POST",
           body: formData,
         });
-  
+
         // Update user details with new resume path
         await fetch(`${BASE_URL}/api/users/userdetail/${user_id}`, {
           method: "PATCH",
@@ -88,7 +88,6 @@ const EditProfile = () => {
           }),
         });
       }
-  
 
       // Route to other page
       handleUpdateSuccess();
@@ -215,7 +214,11 @@ const EditProfile = () => {
               <div>
                 {tempProfile.avatar ? (
                   <img
-                    src={tempProfile.avatar}
+                    src={
+                      typeof tempProfile.avatar === "string"
+                        ? tempProfile.avatar
+                        : URL.createObjectURL(tempProfile.avatar)
+                    }
                     alt="avatar"
                     className="h-16 w-16 rounded-full mb-2"
                   />
