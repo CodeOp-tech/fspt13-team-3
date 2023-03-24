@@ -301,6 +301,17 @@ export default function ProfileForm() {
                 <div className="mb-4">
                   <label className="block text-gray-900 text-sm font-medium mb-2">
                     Resume/CV
+                    {document ? (
+                  <iframe
+                    src={
+                       URL.createObjectURL(document)
+                    }
+                    alt="document"
+                    className="h-16 w-16 mb-2"
+                  />
+                ) : (
+                  <div className="h-16 w-16 mb-2 bg-gray-200"></div>
+                )}
                     <input
                       type="file"
                       onChange={handleDocument}
