@@ -1,36 +1,40 @@
-
-// // //This goes in component that displays the cart 
-// //   <ul>
-// //   {cart.map((product) => (
-// //     <li key={product.id}>
-// //       {product.name} - ${product.price}
-// //       <button onClick={() => handleRemoveFromCart(product)}>Remove from Cart</button>
-// //     </li>
-// //   ))}
-// // </ul>
-
-
-// function ProductList({ products, onAddToCart }) {
-//     return (
-//       <div>
-//         <h2>Products</h2>
-//         <ul>
-//           {products.map((product) => (
-//             <li key={product.id}>
-//               {product.name} - ${product.price}
-//               <button onClick={() => onAddToCart(product)}>Add to Cart</button>
-//             </li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-  
-
-// // //Display no. of items in cart
-// //   <div>Cart ({cart.length} items)</div>
-
 import { useState } from 'react';
+
+function addToCart(itemId, quantity) {
+  fetch('../api/cart/addcart', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`,
+    },
+    body: JSON.stringify({ itemId, quantity }),
+  })
+    .then(response => {
+      if (response.ok) {
+        // Handle success
+      } else {
+        // Handle error
+      }
+    })
+    .catch(error => {
+      // Handle network error
+    });
+}
+
+function getCart() {
+  return fetch('../api/cart/getcart', {
+    headers: {
+      'Authorization': `Bearer ${authToken}`,
+    },
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to retrieve cart items');
+      }
+    });
+}
 
 function Product({ name, price }) {
   const [cartItems, setCartItems] = useState([]);
@@ -44,10 +48,6 @@ function Product({ name, price }) {
     setCart(updatedCart);
   };
 
-//   const price = [
-//     { value: "1 hour @ 25£", label: "1 hour @ 25£" },
-//     { value: "1 hour @ 45£", label: "1 hour @ 45£" },
-//   ];
 
   function Cart({ items }) {
     return (
